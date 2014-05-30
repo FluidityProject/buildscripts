@@ -1,0 +1,26 @@
+#PBS -N compfemdem
+#PBS -l walltime=1:00:00
+#PBS -l select=1:ncpus=1:mem=1800mb
+#PBS -q pqesebot
+
+module load intel-suite/11.1
+module load mpi
+module load vtk/5.8.0
+module load netcdf
+module load udunits
+module load parmetis
+module load petsc/3.1-p8-intel-11
+module load zoltan
+module load libscotch
+
+export LIBS="-L${ZOLTAN_HOME}/lib -L${VTK_LIBS} -L${NETCDF_HOME}/lib -L${UDUNITS_HOME}/lib -L${PARMETIS_HOME}/lib -L/usr/X11R6/lib64/ -L${MKL_HOME}/lib/64/ -lmkl_intel_lp64 -lmkl_sequential -lmkl_core"
+export CPPFLAGS="-I${ZOLTAN_HOME}/include -I${VTK_INCLUDE} -I${NETCDF_HOME}/include -I${UDUNITS_HOME}/include -I${PARMETIS_HOME}/include"
+export ZOLTAN_DEPS="-L${ZOLTAN_HOME}/lib -L${LIBSCOTCH_HOME}/lib -L/apps/patoh/lib -lpthread -lptscotch -lpatoh -lptscotcherr -lptscotcherrexit -lscotchmetis -lscotch"
+
+unset LD_PRELOAD
+
+cd $HOME/slaves/fluidity/cx1-intel-femdembuild/build
+./configure > compile.log 2>&1 && make clean >> compile.log 2>&1 && make >> compile.log 2>&1 && echo "BUILD COMPLETE" >> compile.log 2>&1
+
+cp -v $PWD/bin/b3d $HOME/bin/buildbot/b3d >> compile.log 2>&1
+cp -v $PWD/bin/dfemdem $HOME/bin/buildbot/dfemdem >> compile.log 2>&1

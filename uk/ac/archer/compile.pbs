@@ -1,0 +1,63 @@
+#!/bin/bash --login
+
+###############################################################################
+#
+# This is an example PBS script for building Fluidity on Archer, and can be
+# found in the lp:fluidity/buildscripts repository as /uk/ac/archer/compile.pbs
+# along with the latest PrgEnv-fluidity module which will be required for this
+# script to function properly.
+#
+# To check out Fluidity on archer, start a clean login session, change to your
+# work directory, and then run:
+#
+#  module load bzr
+#  bzr co lp:fluidity
+#
+# Change into the resulting fluidity/ directory, place this script in it, edit
+# as directed in the comments below, and submit it with:
+#
+#  qsub compile.pbs
+#
+# The progress of the compilation can be monitored in a timestamped file of the
+# form:
+#
+#  compile-##########.log
+#
+###############################################################################
+
+#PBS -l walltime=01:00:00
+#PBS -N compile
+#PBS -l select=1
+
+# EDIT REQUIRED: set the project this job should be billed to 
+
+#PBS -A projectcode
+
+# Change to directory that the job was submitted from
+cd $PBS_O_WORKDIR
+
+export TIMESTAMP=`date +%s`
+
+# EDIT REQUIRED: Set the following for your own work directory and fluidity
+#                  build location
+#
+export WORK=/work/project/project/username
+export FLUIDITYDIR=$WORK/fluidity
+
+# EDIT REQUIRED: Set the following for the location where you have put the 
+#                  PrgEnv-fluidity module
+#
+export MODULEPATH=$MODULEPATH:$HOME/privatemodules
+
+export PATH=$PATH:$FLUIDITYDIR/bin
+export PYTHONPATH=$PYTHONPATH:$FLUIDITYDIR/python
+
+module swap PrgEnv-cray PrgEnv-fluidity
+
+export LD_LIBRARY_PATH=$ANACONDA_LIB:$LD_LIBRARY_PATH
+
+./configure --enable-2d-adaptivity 2>&1 >>compile-${TIMESTAMP}.log 
+make clean 2>&1 >>compile-${TIMESTAMP}.log 
+make -j 2>&1 >>compile-${TIMESTAMP}.log 
+make -j fltools 2>&1 >>compile-${TIMESTAMP}.log 
+

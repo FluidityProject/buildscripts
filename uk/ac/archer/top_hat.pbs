@@ -1,0 +1,58 @@
+#!/bin/bash --login
+
+###################################################################
+#
+# This is an example PBS script for archer, and can be found in the
+# lp:fluidity/buildscripts repository as /uk/ac/archer/top_hat.pbs
+#
+# That directory also contains a build script for Fluidity on Archer,
+# along with the lateѕt PrgEnv-fluidity module which will need to be
+# present as described below for this script to function.
+#
+# It is intended to be a drop-in script for the examples/top_hat/
+# directory to preprocess and run the cg, dg, and cv models.
+#
+# Edit as directed in the comments below.
+#
+###################################################################
+
+#PBS -l walltime=00:05:00
+#PBS -N top_hat
+
+# NOTE: Archer is entirely composed of 24-core nodes; 'select' gives
+#       you multiples of 24 cores, and there is no possibility to
+#       allocate partial nodes
+
+#PBS -l select=1
+
+# EDIT REQUIRED: set the project this job should be billed to 
+
+#PBS -A project
+
+# Change to directory that the job was submitted from
+cd $PBS_O_WORKDIR
+
+# EDIT REQUIRED: Set the following for your own work directory and fluidity
+#                  build location
+#
+export WORK=/work/project/project/username
+export FLUIDITYDIR=$WORK/fluidity
+
+export PATH=$PATH:$FLUIDITYDIR/bin
+export PYTHONPATH=$PYTHONPATH:$FLUIDITYDIR/python
+export MODULEPATH=$MODULEPATH:$HOME/privatemodules
+
+module swap PrgEnv-cray PrgEnv-fluidity
+
+export LD_LIBRARY_PATH=$ANACONDA_LIB:$LD_LIBRARY_PATH 
+
+# NOTE: To use hyperthreading, pass '-j 2' to aprun
+
+aprun -n 1 interval --dx=0.025 --reverse 0 3 line
+
+echo **********Running the Continuous Galerkin version of this example:
+aprun -n 1 fluidity -v2 -l top_hat_cg.flml
+echo **********Running the Discontinuous Galerkin version of this example:
+aprun -n 1 fluidity -v2 -l top_hat_dg.flml
+echo **********Running the Control Volumes version of this example:
+aprun -n 1 fluidity -v2 -l top_hat_cv.flml

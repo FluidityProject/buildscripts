@@ -1,0 +1,48 @@
+#!/bin/bash --login
+#
+#PBS -N fluidityBuild
+#PBS -q serial
+#PBS -l cput=01:00:00
+#PBS -A n04-IC
+
+cd $PBS_O_WORKDIR
+
+rm -rf fluidityBuild.*
+. /opt/modules/default/init/bash
+
+module load bzr 
+
+bzr up 
+bzr clean-tree --force --detritus
+
+module swap PrgEnv-cray PrgEnv-fluidity
+export PYTHONPATH=$PBS_O_WORKDIR/python
+
+./configure --enable-2d-adaptivity > compile_build_test.log 2>&1 && make clean >> compile_build_test.log 2>&1 && \
+make PACKAGE_VERSION="trunk">> compile_build_test.log 2>&1
+if [ "$?" -eq "0" ]; then
+	echo "BUILD COMPLETE" >> compile_build_test.log
+else
+	echo "BUILD FAILED" >> compile_build_test.log
+fi
+
+make fltools > tool.log 2>&1
+if [ "$?" -eq "0" ]; then
+	echo "TOOLING COMPLETE" >> tool.log
+else
+	echo "TOOLING FAILED" >> tool.log
+fi
+
+
+# copy to amcg
+scp compile_build_test.log amcg.ese.ic.ac.uk:/scratch/xt6_compile.log
+# change permissions
+ssh amcg.ese.ic.ac.uk chmod 644 /scratch/xt6_compile.log
+scp tool.log amcg.ese.ic.ac.uk:/scratch/xt6_tool.log
+# change permissions
+ssh amcg.ese.ic.ac.uk chmod 644 /scratch/xt6_tool.log
+
+# now submit the next job! 12:10am for the next compile
+qsub -a 0010 compile_build_test.pbs
+
+# That's all, folks!

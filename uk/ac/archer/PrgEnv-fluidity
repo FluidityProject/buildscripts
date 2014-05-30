@@ -1,0 +1,70 @@
+#%Module2.0
+#
+# Local module for compiling/running Fluidity on ARCHER
+#
+# To use, run 'module swap PrgEnv-cray PrgEnv-fluidity' after ensuring
+# the location of this file is in MODULEPATH
+#
+# Note that in addition to this module, anaconda libraries should be added to 
+# LD_LIBRARY_PATH with:
+#
+#  export LD_LIBRARY_PATH=$ANACONDA_LIB:$LD_LIBRARY_PATH 
+#
+# This is not done automatically as conflicts between anaconda's TCL and that
+# used by environment modules break any other use of 'module'.
+#
+# Please send any bug reports to Tim Greaves <tim.greaves@imperial.ac.uk>
+#
+#############################################################################
+
+conflict PrgEnv-cray
+conflict PrgEnv-intel
+
+#############################################################################
+# Modules to load
+
+module load PrgEnv-gnu
+
+module load cray-libsci/12.1.2
+module load cray-tpsl/1.3.04
+module load cray-netcdf/4.3.0
+module load cray-hdf5/1.8.11
+module load cray-petsc/3.4.2.0
+
+module load cmake
+module load boost/1.55-gnu
+module load bzr
+module load vtk
+module load zoltan
+
+module unload python
+module load anaconda
+
+global env
+
+# Tell Fluidity that we're on ARCHER; used by configure
+setenv ARCHER "yes"
+
+# Compiles dynamic loaded libraries.
+setenv CRAYPE_LINK_TYPE "dynamic" 
+setenv CRAY_ADD_RPATH "yes"
+
+setenv CPPFLAGS "-DMPICH_IGNORE_CXX_SEEK"
+
+setenv CC "cc"
+setenv MPICC "cc"
+
+setenv CXX "CC"
+setenv MPICXX "CC"
+
+setenv FC "ftn"
+setenv MPIFC "ftn"
+
+setenv F77 "ftn"
+setenv MPIF77 "ftn"
+
+setenv F90 "ftn"
+setenv MPIF90 "ftn"
+
+setenv CPPFLAGS "$env(VTK_INCLUDE_OPTS) $env(ZOLTAN_INCLUDE_OPTS)"
+setenv LIBS "$env(VTK_POST_LINK_OPTS) $env(ZOLTAN_POST_LINK_OPTS)"

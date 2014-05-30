@@ -1,0 +1,27 @@
+###############################################################################
+#
+# User notes for Fluidity on ARCHER
+#
+###############################################################################
+
+This directory contains scripts to help users build and run Fluidity on Archer,
+the UK's Tier 1 HPC. Given the early stage of operation there may well still be
+bugs in these scripts; feedback to tim.greaves@imperial.ac.uk would be greatly
+appreciated if you encounter any problems.
+
+ * PrgEnv-fluidity : a customised module for Fluidity users which should be
+     placed into a privatemodules/ directory in the user's home directory.
+
+ * compile.pbs : a PBS script which needs to be edited to set the user's 
+     project code, work directory, and fluidity source directory, and which
+     can then be submitted as a job to build that fluidity source.
+
+ * top_hat.pbs : a PBS script which needs to be edited to set the user's
+     project code, work directory, and built fluidity directory, provided as an
+     example for running a fluidity job on Archer and written to be dropped in
+     to the top_hat example directory in a built fluidity source tree.
+
+BE AWARE: as of this documentation, the anaconda module contains TCL libraries
+which conflict with those used by the Archer environment modules, so it is not
+recommended to place any module commands in scripts after the PrgEnv-fluidity
+module has been loaded and the anaconda library path added to LD_LIBRARY_PATH.

@@ -1,0 +1,17 @@
+This is a repository for storing build scripts related to Fluidity which are
+specific to a given system. It is primarily intended for multi-user systems,
+but where esoteric configurations exist for standalone systems which might be
+useful to the wider community as examples of setting up a build in an unusual
+environment, please feel free to add them here.
+
+Directory layout should follow the fully-qualified name of the system, stacked
+in reverse order, i.e. scripts for 'cluster1.foo.org' would go in the
+directory:
+
+ <base>/org/foo/cluster1/
+
+Note that since this is branched from the Fluidity trunk to remain in the same
+repository-space you will probably want to do a --lightweight checkout of this
+branch to avoid inheriting the full Fluidity trunk history.
+
+-- Tim Greaves <tim.greaves@imperial.ac.uk>  Thu Sep 26 11:45:04 BST 2013

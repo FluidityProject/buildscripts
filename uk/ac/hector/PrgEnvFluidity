@@ -1,0 +1,104 @@
+#%Module2.0
+
+conflict PrgEnv-cray
+conflict PrgEnv-intel
+conflict PrgEnv-pathscale
+conflict PrgEnv-pgi
+
+module load PrgEnv-gnu/4.0.30
+# swap gcc version
+module unload gcc
+module load gcc/4.6.3
+module unload xt-libsci
+module load xt-libsci/12.0.00
+
+proc ModulesHelp { } {
+      global version
+
+       puts stderr "\tICOM/Fluidity environment for GCC on HECToR Phase 3"
+}
+
+global env
+
+module-whatis "ICOM/Fluidity environment for GCC on HECToR Phase 3"
+
+#################################################################
+
+## fluidity is versioned, current (default) version is 4.19.1 
+## and only need to change this version numer, defined as  
+## FLUIDITY_LEVEL, for an other product version.
+#
+set FLUIDITY_LEVEL 4.19.1
+set FLUIDITY_CURPATH /usr/local/packages/fluidity/$FLUIDITY_LEVEL
+
+## Before setting up PATH and PYTHONPATH for fluidity, need to
+## load a few modules and setup required env variables as below.
+
+#################################################################
+
+module load tpsl/1.3.00
+module load netcdf
+module load petsc/3.3.00
+module load xe-udunits
+module load xe-vtk
+module load zoltan/3.5
+module swap cray-mpich2/5.6.1
+
+module load python-CNL/2.6.2
+setenv PYTHON_EXTRA_LIBS "-ldl"
+setenv PYTHON_EXTRA_LDFLAGS " "
+setenv LIBS "$env(PYTHON_POST_LINK_OPTS) $env(UDUNITS_POST_LINK_OPTS)"
+
+setenv CC "cc"
+setenv MPICC "cc"
+
+setenv CXX "CC"
+setenv MPICXX "CC"
+
+setenv FC "ftn"
+setenv MPIFC "ftn"
+
+setenv F77 "ftn"
+setenv MPIF77 "ftn"
+
+setenv F90 "ftn"
+setenv MPIF90 "ftn"
+
+setenv FFLAGS "-Wl,-z,muldefs -O3 -funroll-loops -ftree-vectorize $env(UDUNITS_POST_COMPILE_OPTS)"
+setenv FCFLAGS "-Wl,-z,muldefs -O3 -funroll-loops -ftree-vectorize $env(UDUNITS_POST_COMPILE_OPTS)"
+setenv CFLAGS "-Wl,-z,muldefs -O3 -funroll-loops -ftree-vectorize $env(UDUNITS_POST_COMPILE_OPTS)"
+setenv CXXFLAGS "-Wl,-z,muldefs -O3 -funroll-loops -ftree-vectorize $env(UDUNITS_POST_COMPILE_OPTS)"
+
+setenv ZOLTAN_DEPS "-L/opt/cray/tpsl/1.2.01/GNU/46/interlagos/lib/"
+
+setenv XTPE_COMPILE_TARGET "linux"
+setenv PETSC_LIB_DIR "/opt/petsc/$env(CRAY_PETSC_VERSION)/real/$env(PE_ENV)/$env(GNU46_PETSC)/$env(CRAY_CPU_TARGET)/lib"
+setenv PETSC_INCLUDE_DIR "/opt/petsc/$env(CRAY_PETSC_VERSION)/real/$env(PE_ENV)/$env(GNU46_PETSC)/$env(CRAY_CPU_TARGET)/include"
+
+setenv PETSC_DIR "/opt/petsc/$env(CRAY_PETSC_VERSION)/real/$env(PE_ENV)/$env(GNU46_PETSC)/"
+setenv PETSC_ARCH interlagos
+
+setenv CPPFLAGS "-DMPICH_IGNORE_CXX_SEEK"
+
+##############################################################
+
+### Now set up PATH and PYTHONPATH for fluidity as below. ###
+
+## PATH (for fluidity)
+#
+prepend-path PATH $FLUIDITY_CURPATH/bin
+
+## To make the product work in commandline generation, must add FLUIDITY bin to
+## the PE_PRODUCT_LIST.
+#
+append-path  PE_PRODUCT_LIST $FLUIDITY_CURPATH/bin
+
+## PYTHONPATH (for fluidity)
+#
+setenv PYTHONPATH $FLUIDITY_CURPATH/python
+append-path PYTHONPATH $FLUIDITY_CURPATH/python
+
+# End of FLUIDITY modulefile
+###
+
+##############################################################
