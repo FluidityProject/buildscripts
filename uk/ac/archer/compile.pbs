@@ -10,8 +10,7 @@
 # To check out Fluidity on archer, start a clean login session, change to your
 # work directory, and then run:
 #
-#  module load bzr
-#  bzr co lp:fluidity
+#  git clone https://github.com/FluidityProject/fluidity.git
 #
 # Change into the resulting fluidity/ directory, place this script in it, edit
 # as directed in the comments below, and submit it with:
