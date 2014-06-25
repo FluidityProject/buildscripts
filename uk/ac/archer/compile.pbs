@@ -32,9 +32,6 @@
 
 #PBS -A projectcode
 
-# Change to directory that the job was submitted from
-cd $PBS_O_WORKDIR
-
 export TIMESTAMP=`date +%s`
 
 # EDIT REQUIRED: Set the following for your own work directory and fluidity
@@ -54,6 +51,9 @@ export PYTHONPATH=$PYTHONPATH:$FLUIDITYDIR/python
 module swap PrgEnv-cray PrgEnv-fluidity
 
 export LD_LIBRARY_PATH=$ANACONDA_LIB:$LD_LIBRARY_PATH
+
+# Change to the Fluidity source directory
+cd $FLUIDITYDIR
 
 ./configure --enable-2d-adaptivity 2>&1 >>compile-${TIMESTAMP}.log 
 make clean 2>&1 >>compile-${TIMESTAMP}.log 
