@@ -29,12 +29,12 @@ module load cray-libsci
 module load cray-tpsl
 module load cray-netcdf
 module load cray-hdf5
-module load cray-petsc
+module load cray-petsc/3.5.2.1
 
 module load cmake
 module load boost/1.55-gnu
 module load vtk
-module load zoltan
+module load zoltan/3.8_20150224
 
 module unload python
 module load anaconda
