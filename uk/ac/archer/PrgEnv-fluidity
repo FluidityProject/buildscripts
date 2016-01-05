@@ -35,9 +35,11 @@ module load cmake
 module load boost/1.55-gnu
 module load vtk
 module load zoltan/3.8_20150224
-
 module unload python
-module load anaconda
+module load python-compute
+module load pc-numpy
+#module load pc-scipy
+#module load anaconda
 
 global env
 
