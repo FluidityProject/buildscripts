@@ -3,7 +3,10 @@
 ###############################################################################
 #
 # This is an example PBS script for building Fluidity on Archer, and can be
-# found in the lp:fluidity/buildscripts repository as /uk/ac/archer/compile.pbs
+# found in the GitHub FluidityProject/buildscripts repository as:
+#
+#     /uk/ac/archer/compile.pbs
+# 
 # along with the latest PrgEnv-fluidity module which will be required for this
 # script to function properly.
 #
