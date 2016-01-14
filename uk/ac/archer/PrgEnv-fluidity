@@ -5,13 +5,8 @@
 # To use, run 'module swap PrgEnv-cray PrgEnv-fluidity' after ensuring
 # the location of this file is in MODULEPATH
 #
-# Note that in addition to this module, anaconda libraries should be added to 
-# LD_LIBRARY_PATH with:
-#
-#  export LD_LIBRARY_PATH=$ANACONDA_LIB:$LD_LIBRARY_PATH 
-#
-# This is not done automatically as conflicts between anaconda's TCL and that
-# used by environment modules break any other use of 'module'.
+# Note that in addition to this module, anaconda and vtk libraries should
+# be added to LD_LIBRARY_PATH as per methods in the accompanying compile.pbs
 #
 # Please send any bug reports to Tim Greaves <tim.greaves@imperial.ac.uk>
 #
