@@ -3,7 +3,9 @@
 ###################################################################
 #
 # This is an example PBS script for archer, and can be found in the
-# lp:fluidity/buildscripts repository as /uk/ac/archer/top_hat.pbs
+# github FluidityProject/buildscripts repository as:
+#
+#     /uk/ac/archer/top_hat.pbs
 #
 # That directory also contains a build script for Fluidity on Archer,
 # along with the lateѕt PrgEnv-fluidity module which will need to be
@@ -42,7 +44,6 @@ export PATH=$PATH:$FLUIDITYDIR/bin:/work/y07/y07/cse/vtk/5.10.1/GNU/bin
 export PYTHONPATH=$PYTHONPATH:$FLUIDITYDIR/python
 export MODULEPATH=$MODULEPATH:/home/z01/z01/lcebaman/privatemodules
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/y07/y07/cse/anaconda/2.2.0-python2/lib/:/work/y07/y07/cse/vtk/5.10.1/GNU/lib/vtk-5.10/
-#module load anaconda
 module swap PrgEnv-cray PrgEnv-fluidity
 
 # NOTE: To use hyperthreading, pass '-j 2' to aprun
