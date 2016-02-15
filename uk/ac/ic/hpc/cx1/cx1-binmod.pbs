@@ -22,7 +22,7 @@ export PYTHONPATH=/home/amcgsoft/slaves/fluidity/cx1-binmod/build/python:$PYTHON
 
 cd $HOME/slaves/fluidity/cx1-binmod/build/
 
-sed -i 's/xHost//' configure libadaptivity/configure*
+sed -i 's/-xHost//' configure libadaptivity/configure*
 
 ./configure --prefix=/home/fluidity/current --disable-petsc-fortran-modules --enable-2d-adaptivity > compile.log 2>&1 && make clean >> compile.log 2>&1 && make >> compile.log 2>&1 && make fltools >> compile.log 2>&1 && make install >> compile.log 2>&1 && echo "BUILD COMPLETE" >> compile.log 2>&1
 
