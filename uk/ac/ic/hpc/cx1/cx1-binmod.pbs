@@ -13,13 +13,16 @@ module load petsc/3.5.2
 module load zoltan/3.8-intel-15.0
 module load libscotch/5.1.12b
 
-export CPPFLAGS="-xSSE4.2 -axAVX,CORE-AVX-I,CORE-AVX2 -I${ZOLTAN_HOME}/include -I${VTK_INCLUDE} -I${NETCDF_HOME}/include -I${UDUNITS_HOME}/include -I${PARMETIS_HOME}/include"
+export OPTIMISATION_FLAGS="-xSSE4.2 -axAVX,CORE-AVX-I,CORE-AVX2"
+export CPPFLAGS="-I${ZOLTAN_HOME}/include -I${VTK_INCLUDE} -I${NETCDF_HOME}/include -I${UDUNITS_HOME}/include -I${PARMETIS_HOME}/include"
 export ZOLTAN_DEPS="-lzoltan -lparmetis -lmetis -L${ZOLTAN_HOME}/lib -L${LIBSCOTCH_HOME}/lib -lpthread -lptscotch -lptscotcherr -lptscotcherrexit -lscotch"
 export LIBS="-L${ZOLTAN_HOME}/lib -L${VTK_LIBS} -L${NETCDF_HOME}/lib -L${UDUNITS_HOME}/lib -L${PARMETIS_HOME}/lib -L/usr/X11R6/lib64/ -L${MKL_HOME}/lib/64/ -lmkl_intel_lp64 -lmkl_sequential -lmkl_core ${ZOLTAN_DEPS}"
 
 export PYTHONPATH=/home/amcgsoft/slaves/fluidity/cx1-binmod/build/python:$PYTHONPATH
 
 cd $HOME/slaves/fluidity/cx1-binmod/build/
+
+sed -i 's/xHost//' configure libadaptivity/configure*
 
 ./configure --prefix=/home/fluidity/current --disable-petsc-fortran-modules --enable-2d-adaptivity > compile.log 2>&1 && make clean >> compile.log 2>&1 && make >> compile.log 2>&1 && make fltools >> compile.log 2>&1 && make install >> compile.log 2>&1 && echo "BUILD COMPLETE" >> compile.log 2>&1
 
