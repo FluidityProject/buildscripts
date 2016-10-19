@@ -25,6 +25,8 @@ cd $HOME/slaves/fluidity/cx1-binmod/build/
 
 ./configure --prefix=/home/fluidity/current --enable-2d-adaptivity --with-blas=/home/fluidity/buildenv-cx1/lib/libfblas.a --with-lapack="/home/fluidity/buildenv-cx1/lib/libfblas.a /home/fluidity/buildenv-cx1/lib/libflapack.a" > compile.log 2>&1 && make clean >> compile.log 2>&1 && make >> compile.log 2>&1 && make fltools >> compile.log 2>&1 && make install >> compile.log 2>&1 && echo "BUILD COMPLETE" >> compile.log 2>&1
 
+/home/fluidity/buildenv-cx1/libcopy.sh
+
 chmod 775 /home/fluidity/current/bin/*
 find /home/fluidity/current/lib -type f -exec chmod 664 '{}' \;
 find /home/fluidity/current -type d -exec chmod 755 '{}' \;
