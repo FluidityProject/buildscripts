@@ -126,6 +126,7 @@ pushd ${NETCDFF_SOURCEDIR}
 
 # Configure and build
 LDFLAGS="-L${PREFIX}/lib" CPPFLAGS="-I${PREFIX}/include" \
+   LIBS="-L${PREFIX}/lib" \
    ./configure --prefix=${PREFIX}
 
 make install
