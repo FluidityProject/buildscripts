@@ -3,30 +3,16 @@
 #PBS -l select=1:ncpus=1:mem=1800mb
 #PBS -q pqesebot
 
-module load gcc/5.4.0
-module load mpi/openmpi-1.7.4
-module load valgrind/3.11.0
-
-export PREFIX=/home/fluidity/buildenv-cx1
-export VTK_INCLUDE="${PREFIX}/include/vtk-5.10"
-export VTK_LIBS="${PREFIX}/lib"
-export CPPFLAGS="-I${PREFIX}/include -I${VTK_INCLUDE}"
-export PETSC_DIR=${PREFIX}
-export PETSC_ARCH=linux-gnu-opt
-export PATH="/opt/pbs/default/bin:${PREFIX}/bin:$PATH"
-export LIBS="-L${PREFIX}/lib -L/usr/X11R6/lib64/"
-export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${PREFIX}/lib"
-export LDFLAGS="-L${PREFIX}/lib"
-export LIBRARY_PATH="${LIBRARY_PATH}:${PREFIX}/lib"
+module load use.own
+module load gcc-fluidity/cx1-devel
 
 export PYTHONPATH=/home/amcgsoft/slaves/fluidity/cx1-binmod/build/python:$PYTHONPATH
+export PREFIX=${FLUIDITY_HOME}
 
 cd $HOME/slaves/fluidity/cx1-binmod/build/
 
-./configure --prefix=/home/fluidity/current --enable-2d-adaptivity --with-blas=/home/fluidity/buildenv-cx1/lib/libfblas.a --with-lapack="/home/fluidity/buildenv-cx1/lib/libfblas.a /home/fluidity/buildenv-cx1/lib/libflapack.a" > compile.log 2>&1 && make clean >> compile.log 2>&1 && make >> compile.log 2>&1 && make fltools >> compile.log 2>&1 && make install >> compile.log 2>&1 && echo "BUILD COMPLETE" >> compile.log 2>&1
+./configure --prefix=$PREFIX --enable-2d-adaptivity --with-blas=$PREFIX/lib/libfblas.a --with-lapack="$PREFIX/lib/libfblas.a $PREFIX/lib/libflapack.a" > compile.log 2>&1 && make clean >> compile.log 2>&1 && make >> compile.log 2>&1 && make fltools >> compile.log 2>&1 && make install >> compile.log 2>&1 && echo "BUILD COMPLETE" >> compile.log 2>&1
 
-/home/fluidity/buildenv-cx1/libcopy.sh
-
-chmod 775 /home/fluidity/current/bin/*
-find /home/fluidity/current/lib -type f -exec chmod 664 '{}' \;
-find /home/fluidity/current -type d -exec chmod 755 '{}' \;
+chmod 775 $PREFIX/bin/*
+find $PREFIX/lib -type f -exec chmod 664 '{}' \;
+find $PREFIX -type d -exec chmod 755 '{}' \;
