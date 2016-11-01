@@ -1,0 +1,19 @@
+#%Module1.0#####################################################################
+##
+## null modulefile
+##
+proc ModulesHelp { } {
+
+}
+
+set basedir /home/fluidity/current-cx2
+setenv FLUIDITY_HOME ${basedir}
+
+append-path PATH ${basedir}/bin
+append-path LD_LIBRARY_PATH ${basedir}/lib
+
+setenv ICOM_DATA /home/fluidity/share/fluidity/data
+
+append-path PYTHONPATH /home/fluidity/current-cx2/lib/python2.7/site-packages/
+
+module load gcc/5.4.0 mpi/mpt-2.14 valgrind/3.11.0
