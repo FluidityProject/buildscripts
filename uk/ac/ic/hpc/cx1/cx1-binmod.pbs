@@ -10,9 +10,6 @@ export PYTHONPATH=/home/amcgsoft/slaves/fluidity/cx1-binmod/build/python:$PYTHON
 
 cd $HOME/slaves/fluidity/cx1-binmod/build/
 
-module list
-echo $PATH
-
 ./configure --prefix=/home/fluidity/current-cx1 --enable-2d-adaptivity --with-blas=/home/fluidity/current-cx1/lib/libfblas.a --with-lapack="/home/fluidity/current-cx1/lib/libfblas.a /home/fluidity/current-cx1/lib/libflapack.a" > compile.log 2>&1 && make clean >> compile.log 2>&1 && make >> compile.log 2>&1 && make fltools >> compile.log 2>&1 && make install >> compile.log 2>&1 && echo "BUILD COMPLETE" >> compile.log 2>&1
 
 chmod 775 /home/fluidity/current-cx1/bin/*
