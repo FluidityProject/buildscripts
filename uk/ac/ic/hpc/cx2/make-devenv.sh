@@ -4,7 +4,7 @@
 
 # Prefix for build
 
-PREFIX=/home/fluidity/cx2-20161101
+PREFIX=/home/fluidity/cx2-****INSERT_DATE_STRING_HERE****
 
 # We want everything python to use conda
 unset PYTHONPATH
