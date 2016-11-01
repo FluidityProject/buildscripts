@@ -156,6 +156,7 @@ ZOLTAN_INCDIR=${PREFIX}/include
 
 # With some Zoltan-build-local environment, configure Zoltan
 LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${ZOLTAN_LIBDIR} \
+LDFLAGS="-L${PREFIX}/lib" CPPFLAGS="-I${PREFIX}/include" \
   ${ZOLTAN_SOURCEDIR}/configure \
   --prefix=${PREFIX} \
   --libdir=${ZOLTAN_LIBDIR} \
