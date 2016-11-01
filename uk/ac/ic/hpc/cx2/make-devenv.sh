@@ -88,6 +88,52 @@ popd
 ln -s ${PREFIX}/lib/libfblas.a ${PREFIX}/lib/libblas.a
 ln -s ${PREFIX}/lib/libflapack.a ${PREFIX}/lib/liblapack.a
 
+# NetCDF-C build
+
+# Obtain source
+NETCDF_VERSION="4.4.1"
+NETCDF_TARBALL="netcdf-${NETCDF_VERSION}.tar.gz"
+NETCDF_SERVER="ftp://ftp.unidata.ucar.edu/"
+NETCDF_SERVERDIR="pub/netcdf/"
+
+curl -s ${NETCDF_SERVER}${NETCDF_SERVERDIR}${NETCDF_TARBALL} | tar -zxf -
+
+NETCDF_SOURCEDIR=netcdf-${NETCDF_VERSION}
+
+# Change into the source directory
+pushd ${NETCDF_SOURCEDIR}
+
+# Configure and build
+CC=mpicc ./configure --prefix=${PREFIX}
+
+make install
+
+# Return to our previous directory
+popd
+
+# NetCDF-Fortran build
+
+# Obtain source
+NETCDFF_VERSION="4.4.4"
+NETCDFF_TARBALL="netcdf-fortran-${NETCDFF_VERSION}.tar.gz"
+
+curl -s ${NETCDF_SERVER}${NETCDF_SERVERDIR}${NETCDFF_TARBALL} | tar -zxf -
+
+NETCDFF_SOURCEDIR=netcdf-fortran-${NETCDFF_VERSION}
+
+# Change into the source directory
+pushd ${NETCDFF_SOURCEDIR}
+
+# Configure and build
+LDFLAGS="-L${PREFIX}/lib" CPPFLAGS="-I${PREFIX}/include" \
+   LIBS="-L${PREFIX}/lib" \
+   ./configure --prefix=${PREFIX}
+
+make install
+
+# Return to our previous directory
+popd
+
 # Obtain source for Zoltan
 ZOLTAN_VERSION=v3.83
 ZOLTAN_TARBALL=zoltan_distrib_${ZOLTAN_VERSION}.tar.gz
@@ -131,49 +177,4 @@ LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${ZOLTAN_LIBDIR} \
 make install
 
 # Return to our previous location
-popd
-
-# NetCDF-C build
-
-# Obtain source
-NETCDF_VERSION="4.4.1"
-NETCDF_TARBALL="netcdf-${NETCDF_VERSION}.tar.gz"
-NETCDF_SERVER="ftp://ftp.unidata.ucar.edu/"
-NETCDF_SERVERDIR="pub/netcdf/"
-
-curl -s ${NETCDF_SERVER}${NETCDF_SERVERDIR}${NETCDF_TARBALL} | tar -zxf -
-
-NETCDF_SOURCEDIR=netcdf-${NETCDF_VERSION}
-
-# Change into the source directory
-pushd ${NETCDF_SOURCEDIR}
-
-# Configure and build
-./configure --prefix=${PREFIX}
-
-make install
-
-# Return to our previous directory
-popd
-
-# NetCDF-Fortran build
-
-# Obtain source
-NETCDFF_VERSION="4.4.4"
-NETCDFF_TARBALL="netcdf-fortran-${NETCDFF_VERSION}.tar.gz"
-
-curl -s ${NETCDF_SERVER}${NETCDF_SERVERDIR}${NETCDFF_TARBALL} | tar -zxf -
-
-NETCDFF_SOURCEDIR=netcdf-fortran-${NETCDFF_VERSION}
-
-# Change into the source directory
-pushd ${NETCDFF_SOURCEDIR}
-
-# Configure and build
-LDFLAGS="-L${PREFIX}/lib" CPPFLAGS="-I${PREFIX}/include" \
-   ./configure --prefix=${PREFIX}
-
-make install
-
-# Return to our previous directory
 popd
