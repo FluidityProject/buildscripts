@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Fluidity buildenv script written for CX1 with local PETSc, Zoltan, NetCDF, and
+# Fluidity buildenv script written for CX1 with local PETSc, Zoltan, NetCDF, and conda
 
 # Prefix for build
 
