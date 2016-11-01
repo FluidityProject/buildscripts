@@ -1,11 +1,10 @@
 #!/bin/sh
 #
 # Fluidity buildenv script written for CX1 with local PETSc, Zoltan, NetCDF, and
- conda
 
 # Prefix for build
 
-PREFIX=/home/fluidity/cx1-20161031
+PREFIX=/home/fluidity/cx1-****INSERT_DATE_STRING_HERE**
 
 # We want everything python to use conda
 unset PYTHONPATH
