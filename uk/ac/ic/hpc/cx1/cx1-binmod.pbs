@@ -3,8 +3,7 @@
 #PBS -l select=1:ncpus=1:mem=1800mb
 #PBS -q pqesebot
 
-module load use.own
-module load gcc-fluidity/cx1-devel
+module load fluidity/devel
 
 export PYTHONPATH=/home/amcgsoft/slaves/fluidity/cx1-binmod/build/python:$PYTHONPATH
 
