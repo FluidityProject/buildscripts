@@ -1,0 +1,28 @@
+#%Module1.0#####################################################################
+##
+## null modulefile
+##
+proc ModulesHelp { } {
+
+}
+
+set basedir /home/fluidity/current-cx1
+setenv FLUIDITY_HOME ${basedir}
+
+append-path PATH            ${basedir}/bin
+append-path LD_LIBRARY_PATH ${basedir}/lib
+append-path LIBRARY_PATH    ${basedir}/lib
+
+setenv VTK_INCLUDE ${basedir}/include/vtk-5.10
+setenv VTK_LIBS    ${basedir}/lib
+setenv CPPFLAGS    "-I${basedir}/include -I${basedir}/include/vtk-5.10"
+setenv PETSC_DIR   ${basedir}
+setenv PETSC_ARCH  linux-gnu-opt
+setenv LIBS        "-L${basedir}/lib -L/usr/X11R6/lib64"
+setenv LDFLAGS     -L${basedir}/lib
+
+module load gcc/5.4.0 mpi/openmpi-1.7.4 valgrind/3.11.0
+
+unsetenv MPI_LIBS
+
+setenv PYTHONPATH      ${basedir}/lib/python2.7/site-packages/
