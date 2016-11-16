@@ -49,7 +49,7 @@ export PETSC_DIR=${PWD}
 
 # Set up the PETSc build environment
 VALGRIND_DIR=/apps/valgrind/3.11.0
-MPI_DIR=/apps/openmpi/1.7.4
+MPI_DIR=/apps/intel/impi/5.1.1.109/compilers_and_libraries_2016.0.109/linux/mpi
 PETSC_ARCH=linux-gnu-opt
 
 # Configure and build PETSc
