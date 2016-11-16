@@ -4,7 +4,7 @@
 #PBS -q pqesebot
 
 module load use.own
-module load gcc-fluidity/devel
+module load gcc-fluidity/cx1-devel
 
 export PYTHONPATH=/home/amcgsoft/slaves/fluidity/cx1-binmod/build/python:$PYTHONPATH
 
