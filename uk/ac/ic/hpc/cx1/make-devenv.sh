@@ -1,6 +1,8 @@
 #!/bin/sh
 #
 # Fluidity buildenv script written for CX1 with local PETSc, Zoltan, NetCDF, and conda
+#
+# Remember to load the fluidity/devel module before running this script.
 
 # Prefix for build
 
