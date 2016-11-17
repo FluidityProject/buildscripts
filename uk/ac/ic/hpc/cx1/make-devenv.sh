@@ -180,22 +180,13 @@ make install
 # Return to our previous location
 popd
 
-GMSH_VERSION="2.14.0"
-GMSH_TARBALL="gmsh-${GMSH_VERSION}-source.tgz"
+GMSH_VERSION="2.14.1"
+GMSH_TARBALL="gmsh-${GMSH_VERSION}-Linux64.tgz"
 GMSH_SERVER="http://gmsh.info/"
 GMSH_SERVERDIR="src/"
 
 curl -s ${GMSH_SERVER}${GMSH_SERVERDIR}${GMSH_TARBALL} | tar -zxf -
 
-GMSH_SOURCEDIR="${PWD}/gmsh-${GMSH_VERSION}-source"
-GMSH_BUILDDIR="${PWD}/gmsh-build"
+GMSH_BINDIR="${PWD}/gmsh-${GMSH_VERSION}-Linux/bin"
 
-mkdir -p ${GMSH_BUILDDIR}
-
-pushd ${GMSH_BUILDDIR}
-
-cmake -DENABLE_CHACO=OFF -DCMAKE_INSTALL_PREFIX=${PREFIX} ${GMSH_SOURCEDIR}
-make install
-
-popd
-
+install -t ${PREFIX}/bin ${GMSH_BINDIR}/gmsh ${GMSH_BINDIR}/onelab.py
