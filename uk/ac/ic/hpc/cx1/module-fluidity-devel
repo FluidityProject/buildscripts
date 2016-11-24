@@ -9,7 +9,7 @@ proc ModulesHelp { } {
 set basedir /home/fluidity/current-cx1
 setenv FLUIDITY_HOME ${basedir}
 
-module load gcc/5.4.0 mpi/openmpi-1.7.4 valgrind/3.11.0
+module load gcc mpi valgrind
 
 prepend-path PATH            ${basedir}/bin
 prepend-path LD_LIBRARY_PATH ${basedir}/lib
@@ -23,6 +23,12 @@ setenv PETSC_ARCH  linux-gnu-opt
 setenv PYTHONPATH      ${basedir}/lib/python2.7/site-packages/
 setenv LIBS        "-L${basedir}/lib -L/usr/X11R6/lib64"
 setenv LDFLAGS     -L${basedir}/lib
+setenv I_MPI_F90   gfortran
+setenv I_MPI_F77   gfortran
+setenv I_MPI_FC    gfortran
+setenv I_MPI_CC    gcc
+setenv I_MPI_CXX   g++
 
-unsetenv MPI_LIBS
+
+
 
