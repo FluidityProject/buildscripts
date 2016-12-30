@@ -54,6 +54,8 @@ export PYTHONPATH=$PYTHONPATH:$FLUIDITYDIR/python
 module swap PrgEnv-cray PrgEnv-fluidity
 module unload vtk
 export LD_LIBRARY_PATH=$ANACONDA_LIB:$LD_LIBRARY_PATH:/work/y07/y07/cse/vtk/5.10.1/GNU/lib/vtk-5.10
+export VTK_LIBS=/work/y07/y07/cse/vtk/5.10.1/GNU/lib/vtk-5.10
+export VTK_INCLUDE=/work/y07/y07/cse/vtk/5.10.1/GNU/include/vtk-5.10
 
 # Change to the Fluidity source directory
 cd $FLUIDITYDIR
