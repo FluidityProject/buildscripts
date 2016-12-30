@@ -42,7 +42,7 @@ export FLUIDITYDIR=$WORK/fluidity
 
 export PATH=$PATH:$FLUIDITYDIR/bin:/work/y07/y07/cse/vtk/5.10.1/GNU/bin
 export PYTHONPATH=$PYTHONPATH:$FLUIDITYDIR/python
-export MODULEPATH=$MODULEPATH:/home/z01/z01/lcebaman/privatemodules
+export MODULEPATH=$MODULEPATH:$HOME/privatemodules
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/y07/y07/cse/anaconda/2.2.0-python2/lib/:/work/y07/y07/cse/vtk/5.10.1/GNU/lib/vtk-5.10/
 module swap PrgEnv-cray PrgEnv-fluidity
 
