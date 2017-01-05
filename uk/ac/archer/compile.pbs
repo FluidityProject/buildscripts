@@ -37,25 +37,19 @@
 
 export TIMESTAMP=`date +%s`
 
-# EDIT REQUIRED: Set the following for your own work directory and fluidity
-#                  build location
-#
-export WORK=/work/project/project/username
-export FLUIDITYDIR=$WORK/fluidity
-
 # EDIT REQUIRED: Set the following for the location where you have put the 
 #                  PrgEnv-fluidity module
 #
 export MODULEPATH=$MODULEPATH:$HOME/privatemodules
-
-export PATH=$PATH:$FLUIDITYDIR/bin:/work/y07/y07/cse/vtk/5.10.1/GNU/bin
-export PYTHONPATH=$PYTHONPATH:$FLUIDITYDIR/python
-
 module swap PrgEnv-cray PrgEnv-fluidity
-module unload vtk
-export LD_LIBRARY_PATH=$ANACONDA_LIB:$LD_LIBRARY_PATH:/work/y07/y07/cse/vtk/5.10.1/GNU/lib/vtk-5.10
-export VTK_LIBS=/work/y07/y07/cse/vtk/5.10.1/GNU/lib/vtk-5.10
-export VTK_INCLUDE=/work/y07/y07/cse/vtk/5.10.1/GNU/include/vtk-5.10
+
+# EDIT REQUIRED: Set the following for your own work directory and fluidity
+#                  build location
+#
+export WORK=/work/y07/y07/fluidity/build
+export FLUIDITYDIR=$WORK/fluidity
+export PATH=$PATH:$FLUIDITYDIR/bin
+export PYTHONPATH=$PYTHONPATH:$FLUIDITYDIR/python
 
 # Change to the Fluidity source directory
 cd $FLUIDITYDIR
