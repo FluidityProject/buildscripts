@@ -25,12 +25,12 @@ module load cray-libsci
 module load cray-tpsl
 module load cray-netcdf
 module load cray-hdf5
-module load cray-petsc/3.5.2.1
+module load cray-petsc
+module load cray-trilinos
 
 module load cmake
-module load boost/1.55
+module load boost
 module load vtk
-module load zoltan/3.8_20150224
 module unload python
 module load python-compute
 module load pc-numpy
@@ -63,5 +63,8 @@ setenv MPIF77 "ftn"
 setenv F90 "ftn"
 setenv MPIF90 "ftn"
 
-setenv CPPFLAGS "$env(VTK_INCLUDE_OPTS) $env(ZOLTAN_INCLUDE_OPTS)"
-setenv LIBS "$env(VTK_POST_LINK_OPTS) $env(ZOLTAN_POST_LINK_OPTS)"
+# Set up for GNU vtk 
+append-path PATH /work/y07/y07/cse/vtk/5.10.1/GNU/bin
+append-path LD_LIBRARY_PATH /work/y07/y07/cse/vtk/5.10.1/GNU/lib/vtk-5.10
+setenv VTK_LIBS /work/y07/y07/cse/vtk/5.10.1/GNU/lib/vtk-5.10
+setenv VTK_INCLUDE /work/y07/y07/cse/vtk/5.10.1/GNU/include/vtk-5.10
