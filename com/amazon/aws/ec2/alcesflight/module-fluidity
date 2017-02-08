@@ -1,0 +1,17 @@
+#%Module1.0#####################################################################
+##
+## null modulefile
+##
+proc ModulesHelp { } {
+
+}
+
+set basedir /opt/apps/fluidity
+setenv FLUIDITY_HOME ${basedir}
+
+append-path PATH ${basedir}/bin
+append-path LD_LIBRARY_PATH ${basedir}/lib
+
+append-path PYTHONPATH ${basedir}/lib/python2.7/site-packages/
+
+module load compilers/gcc mpi/openmpi

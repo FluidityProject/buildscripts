@@ -1,0 +1,29 @@
+#%Module1.0#####################################################################
+##
+## null modulefile
+##
+proc ModulesHelp { } {
+
+}
+
+set basedir /opt/apps/fluidity
+setenv FLUIDITY_HOME ${basedir}
+
+module load compilers/gcc mpi/openmpi apps/cmake
+
+prepend-path PATH            ${basedir}/bin
+prepend-path LD_LIBRARY_PATH ${basedir}/lib
+prepend-path LIBRARY_PATH    ${basedir}/lib
+
+setenv VTK_INCLUDE ${basedir}/include/vtk-5.10
+setenv VTK_LIBS    ${basedir}/lib
+setenv CPPFLAGS    "-I${basedir}/include -I${basedir}/include/vtk-5.10"
+setenv MPICC_CC    gcc
+setenv MPICXX_CXX  g++
+setenv MPIF08_F08  gfortran
+setenv MPIF90_F90  gfortran
+setenv PETSC_DIR   ${basedir}
+setenv PETSC_ARCH  linux-gnu-opt
+setenv PYTHONPATH  ${basedir}/lib/python2.7/site-packages/
+setenv LIBS        "-L${basedir}/lib -L/usr/X11R6/lib64"
+setenv LDFLAGS     -L${basedir}/lib
