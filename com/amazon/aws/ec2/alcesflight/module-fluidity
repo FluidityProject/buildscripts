@@ -14,4 +14,4 @@ append-path LD_LIBRARY_PATH ${basedir}/lib
 
 append-path PYTHONPATH ${basedir}/lib/python2.7/site-packages/
 
-module load compilers/gcc mpi/openmpi
+module load mpi/openmpi
