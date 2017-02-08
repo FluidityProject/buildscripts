@@ -9,7 +9,7 @@ proc ModulesHelp { } {
 set basedir /opt/apps/fluidity
 setenv FLUIDITY_HOME ${basedir}
 
-module load compilers/gcc mpi/openmpi apps/cmake
+module load mpi/openmpi apps/cmake
 
 prepend-path PATH            ${basedir}/bin
 prepend-path LD_LIBRARY_PATH ${basedir}/lib
