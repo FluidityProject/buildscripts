@@ -6,7 +6,7 @@ proc ModulesHelp { } {
 
 }
 
-set basedir /home/fluidity/current-cx2
+set basedir /home/avdis01/fluidity-local
 setenv FLUIDITY_HOME ${basedir}
 
 module load gcc/5.4.0 mpi/mpt-2.14 valgrind/3.11.0
