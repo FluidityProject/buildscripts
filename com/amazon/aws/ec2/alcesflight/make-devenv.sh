@@ -29,7 +29,7 @@ conda install -y numpy scipy vtk=${CONDA_VTK_VERSION} sympy matplotlib
 conda install -c scitools -y udunits
 
 # Get the PETSc tarball
-PETSC_VERSION=3.7.4
+PETSC_VERSION=3.4.2
 PETSC_TARBALL=petsc-lite-${PETSC_VERSION}.tar.gz
 PETSC_SERVER="http://ftp.mcs.anl.gov/"
 PETSC_SERVERDIR="pub/petsc/release-snapshots/"
@@ -37,10 +37,10 @@ PETSC_SERVERDIR="pub/petsc/release-snapshots/"
 curl -s ${PETSC_SERVER}${PETSC_SERVERDIR}${PETSC_TARBALL} | tar -zxf -
 
 # PETSc tarball is missing bin/maint - pull from master
-PETSC_MASTERSVNURL="https://github.com/petsc/petsc.git/trunk"
+#PETSC_MASTERSVNURL="https://github.com/petsc/petsc.git/trunk"
 PETSC_SOURCEDIR=petsc-${PETSC_VERSION}
-
-svn export ${PETSC_MASTERSVNURL}/bin/maint $PETSC_SOURCEDIR/bin/maint
+#
+#svn export ${PETSC_MASTERSVNURL}/bin/maint $PETSC_SOURCEDIR/bin/maint
 
 # Change into the PETSc sourcedir
 pushd ${PETSC_SOURCEDIR}
