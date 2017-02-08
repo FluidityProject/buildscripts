@@ -4,7 +4,7 @@
 
 # Prefix for build
 
-PREFIX=/home/fluidity/cx2-****INSERT_DATE_STRING_HERE****
+PREFIX=/home/avdis01/fluidity-local
 
 # We want everything python to use conda
 unset PYTHONPATH
@@ -29,7 +29,7 @@ conda install -y numpy scipy vtk=${CONDA_VTK_VERSION} sympy matplotlib
 conda install -c scitools -y udunits
 
 # Get the PETSc tarball
-PETSC_VERSION=3.7.4
+PETSC_VERSION=3.4.2
 PETSC_TARBALL=petsc-lite-${PETSC_VERSION}.tar.gz
 PETSC_SERVER="http://ftp.mcs.anl.gov/"
 PETSC_SERVERDIR="pub/petsc/release-snapshots/"
