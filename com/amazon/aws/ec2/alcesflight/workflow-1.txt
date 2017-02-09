@@ -1,0 +1,21 @@
+# This is a workflow for installing Fluidity at #252fe1 on Alces Flight
+
+alces gridware install mpi/openmpi/1.10.2
+alces gridware install apps/cmake/3.5.2
+git clone https://github.com/fluidityproject/buildscripts.git
+mkdir ~/privatemodules
+cp buildscripts/com/amazon/aws/ec2/alcesflight/module-fluidity ~/privatemodules/fluidity
+cp buildscripts/com/amazon/aws/ec2/alcesflight/module-fluidity-devel ~/privatemodules/fluidity-devel
+echo "export MODULEPATH=$MODULEPATH:$HOME/privatemodules" >> ~/.bashrc
+source ~/.bashrc
+mkdir build && cd build
+cp ../buildscripts/com/amazon/aws/ec2/alcesflight/make-devenv.sh .
+module load fluidity-devel
+sudo chmod 777 /opt/apps/
+sh make-devenv.sh
+git clone https://github.com/fluidityproject/fluidity.git
+export LIBS="-lblas -llapack"
+cd fluidity
+git reset --hard 252fe122027094e7d0b57fb99148948951252cea
+./configure --enable-2d-adaptivity --prefix=/opt/apps/fluidity
+make -j install
