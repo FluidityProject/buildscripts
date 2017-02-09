@@ -28,8 +28,9 @@ export CONDA_VTK_VERSION="5.10"
 conda install -y numpy scipy vtk=${CONDA_VTK_VERSION} sympy matplotlib
 conda install -c scitools -y udunits
 
-# PETSc (specifically, ptscotch) needs zlib headers
+# Zlib is needed by PETSc (specifically, ptscotch)
 
+# Get the zlib tarball 
 ZLIB_VERSION=1.2.11
 ZLIB_TARBALL=zlib-${ZLIB_VERSION}.tar.gz
 ZLIB_SERVER=http://www.zlib.net/
@@ -38,11 +39,14 @@ curl -s ${ZLIB_SERVER}${ZLIB_TARBALL} | tar -zxf -
 
 ZLIB_SOURCEDIR=zlib-${ZLIB_VERSION}
 
+# Change into the zlib source directory
 pushd ${ZLIB_SOURCEDIR}
 
+# configure, make, and install zlib
 ./configure --prefix=${PREFIX}
 make install
 
+# Return to the previous directory
 popd
 
 # Get the PETSc tarball
@@ -65,7 +69,7 @@ pushd ${PETSC_SOURCEDIR}
 export PETSC_DIR=${PWD}
 
 # Set up the PETSc build environment
-PETSC_ARCH=linux-gnu-opt
+PETSC_ARCH=linux-gnu-c-opt
 
 # Configure and build PETSc
 ./configure CPPFLAGS=$CPPFLAGS\
