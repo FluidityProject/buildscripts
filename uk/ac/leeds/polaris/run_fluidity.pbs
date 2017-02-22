@@ -1,0 +1,15 @@
+#$ -cwd -V
+#$ -l h_rt=48:00:00
+#$ -l np=128
+#$ -l h_vmem=4G
+# set up environment
+
+module load fluidity
+
+export PACKAGESHOME=/home/polaris_yrk1/yrkjh/
+export FLUIDITYDIR=/nobackup/yrkjh/
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$PACKAGESHOME/lib/:$PACKAGESHOME/pkgs/vtk-5.10.1-py27_1.c~/lib/:$PACKAGESHOME/pkgs/vtk-5.10.1-py27_1/lib
+export PYTHONPATH=$PYTHONPATH:$PACKAGESHOME/lib/python2.7/site-packages/:$FLUIDITYDIR/python
+
+mpirun $FLUIDITYDIR/fluidity fluidity.flml

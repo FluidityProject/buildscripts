@@ -1,0 +1,29 @@
+#%Module1.0#####################################################################
+##
+## modules fluidity
+##
+## Jon Hill (UoY)
+##
+proc ModulesHelp { } {
+        global version modroot
+
+        puts stderr "fluidity - sets the Environment for compiling and running fluidity in my home directory"
+}
+
+module-whatis   "Sets the environment for compiling and running Fluidity"
+
+set     topdir        $::env(HOME)
+
+module swap intel/12.1.5.339 gnu/4.8.1
+module load openmpi
+module load mkl
+
+setenv       PETSC_DIR           $topdir
+
+prepend-path FCFLAGS             "-I${topdir}/include/petsc/ -I/apps/developers/libraries/openmpi/1.6.1/1/bit-64-gnu-4.8.1/include -I/apps/developers/libraries/netcdf/4.2.1.1/1/bit-64-gnu-4.8.1-openmpi-1.6.1/include/"
+prepend-path CPPFLAGS            "-I${topdir}/include/petsc/ -I/apps/developers/libraries/netcdf/4.2.1.1/1/bit-64-gnu-4.8.1-openmpi-1.6.1/include/"
+setenv       VTK_INSTALL_PREFIX  "${topdir}/pkgs/vtk-5.10.1-py27_1.c~/include"
+prepend-path LDFLAGS             "-L${topdir}/lib/"
+setenv       LIBS                "-lzoltan -lscotch -lptscotch -lscotcherr -lscotcherrexit -lm"
+prepend-path LD_RUN_PATH         "${topdir}/lib/:${topdir}/pkgs/vtk-5.10.1-py27_1.c~/lib/:${topdir}/pkgs/vtk-5.10.1-py27_1/lib"
+prepend-path PATH                "${topdir}/bin"
