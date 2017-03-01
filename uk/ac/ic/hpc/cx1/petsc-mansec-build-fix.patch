@@ -1,0 +1,21 @@
+--- bin/maint/generatefortranstubs.py.orig      2017-03-01 12:54:21.856748387 +0000
++++ bin/maint/generatefortranstubs.py   2017-03-01 12:55:52.948640610 +0000
+@@ -83,12 +83,12 @@
+         libbase = line
+       elif line.find('LOCDIR') >=0:
+         locdir = line.rstrip() + 'ftn-auto/'
+-      elif line.find('SUBMANSEC') >=0:
+-        submansec = line.split('=')[1].lower().strip()
+-      elif line.find('MANSEC') >=0:
+-        submansec = line.split('=')[1].lower().strip()
+-      if line.find('MANSEC') >=0 and not line.find('SUBMANSEC') >=0:
+-        mansec = line.split('=')[1].lower().strip()
++      #elif line.find('SUBMANSEC') >=0:
++      #  submansec = line.split('=')[1].lower().strip()
++      #elif line.find('MANSEC') >=0:
++      #  submansec = line.split('=')[1].lower().strip()
++      #if line.find('MANSEC') >=0 and not line.find('SUBMANSEC') >=0:
++      #  mansec = line.split('=')[1].lower().strip()
+ 
+     # now assemble the makefile
+     outbuf  =  '\n'
