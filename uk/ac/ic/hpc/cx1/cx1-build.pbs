@@ -1,13 +1,12 @@
-#PBS -N fluidity-binmod
-#PBS -l walltime=4:00:00
+#PBS -N fluidity-build
+#PBS -l walltime=00:59:00
 #PBS -l select=1:ncpus=1:mem=1800mb
-#PBS -q pqesebot
 
 module load ese-software
 module load ese-fluidity-dev
 
-export PYTHONPATH=/home/amcgsoft/slaves/fluidity/cx1-binmod/build/python:$PYTHONPATH
+export PYTHONPATH=/home/amcgsoft/slaves/fluidity/cx1-build/build/python:$PYTHONPATH
 
-cd $HOME/slaves/fluidity/cx1-binmod/build/
+cd $HOME/slaves/fluidity/cx1-build/build/
 
 ./configure --enable-2d-adaptivity > compile.log 2>&1 && make clean >> compile.log 2>&1 && make >> compile.log 2>&1 && make fltools >> compile.log 2>&1 && echo "BUILD COMPLETE" >> compile.log 2>&1
