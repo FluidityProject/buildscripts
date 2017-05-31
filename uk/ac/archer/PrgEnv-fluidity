@@ -2,11 +2,12 @@
 #
 # Local module for compiling/running Fluidity on ARCHER
 #
-# To use, run 'module swap PrgEnv-cray PrgEnv-fluidity' after ensuring
-# the location of this file is in MODULEPATH
+# Usage:
 #
-# Note that in addition to this module, anaconda and vtk libraries should
-# be added to LD_LIBRARY_PATH as per methods in the accompanying compile.pbs
+# module use <the directory of this file>
+# module swap PrgEnv-cray PrgEnv-fluidity
+#
+# which assumes you haven't already changed the PrgEnv.
 #
 # Please send any bug reports to Tim Greaves <tim.greaves@imperial.ac.uk>
 #
@@ -19,52 +20,8 @@ conflict PrgEnv-intel
 # Modules to load
 
 module load PrgEnv-gnu
-module swap gcc gcc/4.9.2
 
-module load cray-libsci
-module load cray-tpsl
-module load cray-netcdf
-module load cray-hdf5
-module load cray-petsc
-module load cray-trilinos
-
-module load cmake
-module load boost
-module load vtk
-module unload python
+# The Python modules are needed to get Python at run time.
 module load python-compute
 module load pc-numpy
 #module load pc-scipy
-#module load anaconda
-
-global env
-
-# Tell Fluidity that we're on ARCHER; used by configure
-setenv ARCHER "yes"
-
-# Compiles dynamic loaded libraries.
-setenv CRAYPE_LINK_TYPE "dynamic" 
-setenv CRAY_ADD_RPATH "yes"
-
-setenv CPPFLAGS "-DMPICH_IGNORE_CXX_SEEK"
-
-setenv CC "cc"
-setenv MPICC "cc"
-
-setenv CXX "CC"
-setenv MPICXX "CC"
-
-setenv FC "ftn"
-setenv MPIFC "ftn"
-
-setenv F77 "ftn"
-setenv MPIF77 "ftn"
-
-setenv F90 "ftn"
-setenv MPIF90 "ftn"
-
-# Set up for GNU vtk 
-append-path PATH /work/y07/y07/cse/vtk/5.10.1/GNU/bin
-append-path LD_LIBRARY_PATH /work/y07/y07/cse/vtk/5.10.1/GNU/lib/vtk-5.10
-setenv VTK_LIBS /work/y07/y07/cse/vtk/5.10.1/GNU/lib/vtk-5.10
-setenv VTK_INCLUDE /work/y07/y07/cse/vtk/5.10.1/GNU/include/vtk-5.10
