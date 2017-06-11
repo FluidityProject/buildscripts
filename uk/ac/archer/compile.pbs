@@ -6,56 +6,48 @@
 # found in the GitHub FluidityProject/buildscripts repository as:
 #
 #     /uk/ac/archer/compile.pbs
-# 
-# along with the latest PrgEnv-fluidity module which will be required for this
-# script to function properly.
 #
-# To check out Fluidity on archer, start a clean login session, change to your
-# work directory, and then run:
+# This script is submitted by build.bash to compile Fluidity using the
+# configuration set up by build.bash
 #
-#  git clone https://github.com/FluidityProject/fluidity.git
-#
-# Change into the resulting fluidity/ directory, place this script in it, edit
-# as directed in the comments below, and submit it with:
-#
-#  qsub compile.pbs
-#
-# The progress of the compilation can be monitored in a timestamped file of the
-# form:
+# The progress of the compilation can be monitored in a timestamped
+# file of the form:
 #
 #  compile-##########.log
 #
 ###############################################################################
 
-#PBS -l walltime=01:00:00
 #PBS -N compile
-#PBS -l select=1
+#PBS -l select=serial=true:ncpus=8
+#PBS -l walltime=1:00:00
+#PBS -V
 
-# EDIT REQUIRED: set the project this job should be billed to 
+# Make sure any symbolic links are resolved to absolute path
+export PBS_O_WORKDIR=$(readlink -f $PBS_O_WORKDIR)
 
-#PBS -A projectcode
+# Change to the directory that the job was submitted from
+cd $PBS_O_WORKDIR
 
-export TIMESTAMP=`date +%s`
+# The configuration has to be done already, on the login nodes, and
+# the PBS -V directive (see above) gets the environment that has been
+# set up.  The compilation takes about 30 minutes ('make -j 8') on a
+# serial node.
 
-# EDIT REQUIRED: Set the following for the location where you have put the 
-#                  PrgEnv-fluidity module
-#
-export MODULEPATH=$MODULEPATH:$HOME/privatemodules
-module swap PrgEnv-cray PrgEnv-fluidity
+# The compile step is run on the serial nodes because the compile
+# takes so long, and some optimisation steps may take so long that the
+# /tmp directory is emptied by the system during the optimisations,
+# giving 'file not found' errors.  This seems to be occurring on the
+# serial nodes as well now so TMPDIR is set; this may affect Cray
+# Fortran OPEN statements for scratch files.
+mkdir -p tmp
+export TMPDIR=$PWD/tmp
 
-# EDIT REQUIRED: Set the following for your own work directory and fluidity
-#                  build location
-#
-export WORK=/work/y07/y07/fluidity/build
-export FLUIDITYDIR=$WORK/fluidity
-export PATH=$PATH:$FLUIDITYDIR/bin
-export PYTHONPATH=$PYTHONPATH:$FLUIDITYDIR/python
+make clean > compile-${TIMESTAMP}.log 2>&1
+# The j value MUST be the same as the ncpus value in the #PBS -l
+# select line.
+make -j 8 >> compile-${TIMESTAMP}.log 2>&1
+make -j 8 fltools >> compile-${TIMESTAMP}.log 2>&1
+#make -j 8 build_unittest >> compile-${TIMESTAMP}.log 2>&1
 
-# Change to the Fluidity source directory
-cd $FLUIDITYDIR
-
-./configure --enable-2d-adaptivity 2>&1 >>compile-${TIMESTAMP}.log 
-make clean 2>&1 >>compile-${TIMESTAMP}.log 
-make -j 2>&1 >>compile-${TIMESTAMP}.log 
-make -j fltools 2>&1 >>compile-${TIMESTAMP}.log 
-
+unset TMPDIR
+rm -rf tmp

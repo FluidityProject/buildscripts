@@ -1,0 +1,22 @@
+# Don't ignore .gitignore
+!.gitignore
+
+# Emacs backup and autosave files
+*~
+*#
+
+# Object files, etc.
+*.o
+*.mod
+*.a
+*.pyc
+
+# Logs
+*.log
+
+# Generated files
+
+# Data files (input and output)
+*.gz
+
+# Output files and directories
