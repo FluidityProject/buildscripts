@@ -43,15 +43,15 @@
 export TIMESTAMP=`date +%s`
 
 # EDIT REQUIRED: set the project for running the PBS jobs
-export PROJECT="z19-cse"
+export PROJECT="y07"
 
 # EDIT REQUIRED: Set the following to your own buildscripts directory
-export BUILDSCRIPTS=/home/z01/z01/mjf/FluidityProject/buildscripts/uk/ac/archer
+export BUILDSCRIPTS=/work/y07/y07/fluidity/buildtest
 
 # EDIT REQUIRED: Set the following to your own Fluidity directory on
 # /work
-export FLUIDITYDIR=/work/z01/z01/mjf/FluidityProject/fluidity
-
+export FLUIDITYDIR=/work/y07/y07/fluidity/gh-master
+ 
 # Copy the PrgEnv-fluidity module to the Fluidity directory so
 # $BUILDSCRIPTS does not need to be accessed at all at run time
 mkdir -p $FLUIDITYDIR/modulefiles
@@ -101,13 +101,13 @@ LDFLAGS="$LDFLAGS -Wl,-rpath=$CRAY_TRILINOS_PREFIX_DIR/lib"
 LIBS="$LIBS -L$CRAY_TRILINOS_PREFIX_DIR/lib -lzoltan"
 module unload cray-trilinos
 
-module load cray-hdf5
+#module load cray-hdf5
 module load cray-netcdf
 # cray-petsc/3.6.3.0 needs cray-mpich >= 7.3 (all the other cray-petsc just need cray-mpich >= 7.0)
 # cray-petsc/3.6.3.0 needs cray-tpsl >= 16.03.1 (and has been built with 16.03 == 16.03.1)
-module switch cray-mpich/7.3.2
-module load cray-tpsl/16.03.1
-module load cray-petsc/3.6.3.0
+#module switch cray-mpich/7.3.2
+module load cray-tpsl/17.04.1
+module load cray-petsc/3.7.5.0
 module load cmake
 module load boost
 module load vtk
