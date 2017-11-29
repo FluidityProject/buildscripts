@@ -1,0 +1,13 @@
+diff --git a/aclocal.m4 b/aclocal.m4
+index 932673a..3609056 100644
+--- a/aclocal.m4
++++ b/aclocal.m4
+@@ -293,6 +293,8 @@ acx_lapack_save_FFLAGS="$FFLAGS"
+ acx_lapack_libs=""
+ acx_lapack_dir=""
+ 
++LIBS="$LIBS $BLAS_LIBS"
++
+ AC_ARG_WITH(lapack,
+ 	[AC_HELP_STRING([--with-lapack=<lib>], [use LAPACK library <lib>])])
+ 
