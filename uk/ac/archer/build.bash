@@ -95,7 +95,7 @@ export LIBS=""
 #
 # If using the installed Zoltan causes problems (it shouldn't), then
 # Zoltan will need to be built separately
-module load cray-trilinos/12.2.1.0
+module load cray-trilinos/12.10.1.0
 CPPFLAGS="$CPPFLAGS -I$CRAY_TRILINOS_PREFIX_DIR/include"
 LDFLAGS="$LDFLAGS -Wl,-rpath=$CRAY_TRILINOS_PREFIX_DIR/lib"
 LIBS="$LIBS -L$CRAY_TRILINOS_PREFIX_DIR/lib -lzoltan"
