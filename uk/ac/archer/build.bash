@@ -46,20 +46,20 @@ export TIMESTAMP=`date +%s`
 export PROJECT="y07"
 
 # EDIT REQUIRED: Set the following to your own buildscripts directory
-export BUILDSCRIPTS=/work/y07/y07/fluidity/buildtest
+export BUILDSCRIPTS=/work/y07/y07/fluidity/buildscripts/uk/ac/archer
 
 # EDIT REQUIRED: Set the following to your own Fluidity directory on
 # /work
-export FLUIDITYDIR=/work/y07/y07/fluidity/gh-master
+export FLUIDITYDIR=/work/y07/y07/fluidity/fluidity
  
 # Copy the PrgEnv-fluidity module to the Fluidity directory so
 # $BUILDSCRIPTS does not need to be accessed at all at run time
 mkdir -p $FLUIDITYDIR/modulefiles
-cp -p $BUILDSCRIPTS/PrgEnv-fluidity $FLUIDITYDIR/modulefiles
+cp -p $BUILDSCRIPTS/PrgEnv-fluidity-python3 $FLUIDITYDIR/modulefiles
 module use $FLUIDITYDIR/modulefiles
 
 module unload PrgEnv-cray PrgEnv-gnu PrgEnv-intel
-module load PrgEnv-fluidity
+module load PrgEnv-fluidity-python3
 
 # PrgEnv-gnu is loaded by PrgEnv-fluidity
 # python-compute is loaded by PrgEnv-fluidity
@@ -99,10 +99,12 @@ module load cray-trilinos/12.10.1.0
 CPPFLAGS="$CPPFLAGS -I$CRAY_TRILINOS_PREFIX_DIR/include"
 LDFLAGS="$LDFLAGS -Wl,-rpath=$CRAY_TRILINOS_PREFIX_DIR/lib"
 LIBS="$LIBS -L$CRAY_TRILINOS_PREFIX_DIR/lib -lzoltan"
+LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CRAY_TRILINOS_PREFIX_DIR/lib"
 module unload cray-trilinos
 
 #module load cray-hdf5
-module load cray-netcdf
+module load cray-netcdf-hdf5parallel
+module load cray-hdf5-parallel/1.10.2.0
 # cray-petsc/3.6.3.0 needs cray-mpich >= 7.3 (all the other cray-petsc just need cray-mpich >= 7.0)
 # cray-petsc/3.6.3.0 needs cray-tpsl >= 16.03.1 (and has been built with 16.03 == 16.03.1)
 #module switch cray-mpich/7.3.2
@@ -140,10 +142,14 @@ export MPIF90="ftn"
 echo "CPPFLAGS=$CPPFLAGS" >> configure-${TIMESTAMP}.log
 echo "LIBS=$LIBS" >> configure-${TIMESTAMP}.log
 
+# A bit of prep for h5hut
+libtoolize
+
 # The configure step needs to run on a login node (which is almost
 # identical to a compute node) and the compilation should be run on a
 # PP node because it takes a long time.  compile.pbs has "#PBS -V", so
 # it will get all the environment set up by this script.
+
 if ./configure --enable-2d-adaptivity >> configure-${TIMESTAMP}.log 2>&1; then
     job1=$(qsub -A $PROJECT $BUILDSCRIPTS/compile.pbs)
 else
