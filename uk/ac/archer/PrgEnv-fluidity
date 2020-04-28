@@ -25,3 +25,5 @@ module load PrgEnv-gnu
 module load python-compute/3.6.0_gcc6.1.0
 #module load pc-numpy
 #module load pc-scipy
+
+module swap gcc/6.1.0 gcc/6.3.0

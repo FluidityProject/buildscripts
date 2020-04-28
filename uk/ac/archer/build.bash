@@ -55,11 +55,11 @@ export FLUIDITYDIR=/work/y07/y07/fluidity/fluidity
 # Copy the PrgEnv-fluidity module to the Fluidity directory so
 # $BUILDSCRIPTS does not need to be accessed at all at run time
 mkdir -p $FLUIDITYDIR/modulefiles
-cp -p $BUILDSCRIPTS/PrgEnv-fluidity-python3 $FLUIDITYDIR/modulefiles
+cp -p $BUILDSCRIPTS/PrgEnv-fluidity $FLUIDITYDIR/modulefiles
 module use $FLUIDITYDIR/modulefiles
 
 module unload PrgEnv-cray PrgEnv-gnu PrgEnv-intel
-module load PrgEnv-fluidity-python3
+module load PrgEnv-fluidity
 
 # PrgEnv-gnu is loaded by PrgEnv-fluidity
 # python-compute is loaded by PrgEnv-fluidity
