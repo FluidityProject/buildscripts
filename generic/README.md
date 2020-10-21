@@ -86,3 +86,5 @@ much encouraged to modify configuration parameters to improve performance on you
 
 ## Supporting resources
 
+* [Fluidity wiki](https://github.com/FluidityProject/fluidity/wiki)
+* [Some patches for Fluidity on IC HPC](https://github.com/tmbgreaves/ichpc-build-additional)
