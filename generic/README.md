@@ -4,7 +4,8 @@ This directory contains a set of generic build scripts that are provided as a be
 attempt at supporting a Fluidity build on a minimal system where most or all supporting
 software packages required by Fluidity are missing.
 
-**In most cases this is not how you should aim to be installing Fluidity**
+**In most cases this is not how you should aim to be installing Fluidity; refer to the 
+[Fluidity website for recommended install methods](https://fluidityproject.github.io/get-fluidity.html)**
 
 The majority of systems should be able to install Fluidity either using packages from your
 distribution or by using pre-compiled modules available at a system-wide level. If you are
@@ -82,3 +83,6 @@ prefer.
 
 Builds are in general **not** optimised or tuned, to be as generic as possible, so you are very
 much encouraged to modify configuration parameters to improve performance on your local system.
+
+## Supporting resources
+
