@@ -15,7 +15,7 @@ as guidance for builds, modifying them before they are run.
 **Do not run any of these scripts without thoroughly reading through beforehand and editing
 as required to suit your local system**
 
-## Building Fluidity
+## Building a Fluidity supporting software stack
 
 Fluidity requires a set of supporting software packages to complete configuration and build.
 
@@ -52,3 +52,33 @@ are recommended to use system packages to avoid a difficult build. Fluidity supp
 and patches are available to support VTK9, either from the VTK9-fixes branch of Fluidity or from
 the repository at https://github.com/tmbgreaves/ichpc-build-additional . VTK7 or later is required
 to build against Python3.
+
+### Using the build scripts
+
+Each script is intended to be self-contained, downloading source as required, and operating within
+a 'prefix' directory set at the top of the script. Old builds are retained with timestamps as new
+builds are started - be aware that in the case of larger packages this can use up a lot of space 
+and files. 
+
+The general structure of each script is:
+
+* Define environment
+* Fetch source
+* Configure, build, and install
+* Archive the build script
+* Create a module
+
+Some scripts contain subsidiary builds; for example, Zoltan is contained within the PETSc script,
+to ensure that it makes direct use of sub-packages built by PETSc, and h5py is built from a
+feedstock repository within the conda install.
+
+As far as possible scripts are set up to run without user interaction, but in a few cases some
+input may be needed to confirm dialogues - an example being the conda install.
+
+Some scripts make assumptions about external environment being set, in particular where there are
+interdependencies between packages. You are strongly advised to read through scripts and either
+modify environment variables as required to suit your local system, or hard-code values if you 
+prefer.
+
+Builds are in general **not** optimised or tuned, to be as generic as possible, so you are very
+much encouraged to modify configuration parameters to improve performance on your local system.
