@@ -1,8 +1,8 @@
 # Generic Fluidity install scripts
 
 This directory contains a set of generic build scripts that are provided as a best-effort
-attempt at supporting a Fluidity build on a minimal system where most or all supporting
-software packages required by Fluidity are missing.
+attempt at supporting a Fluidity build on a system where most or all supporting software
+packages required by Fluidity are missing or not configured suitably for Fluidity.
 
 **In most cases this is not how you should aim to be installing Fluidity; refer to the 
 [Fluidity website for recommended install methods](https://fluidityproject.github.io/get-fluidity.html)**
