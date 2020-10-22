@@ -84,6 +84,15 @@ prefer.
 Builds are in general **not** optimised or tuned, to be as generic as possible, so you are very
 much encouraged to modify configuration parameters to improve performance on your local system.
 
+### Extra builds 
+
+Many of the supporting software packages have extra build requirements of their own which should
+be available from system packages, but where Fluidity is being installed by a user without
+administrative privileges it may be necessary to install these extra packages from source.
+
+For example, the subsidiary builds within PETSc require flex, and many builds require a recent
+version of CMake.
+
 ## Supporting resources
 
 * [Fluidity wiki](https://github.com/FluidityProject/fluidity/wiki)
