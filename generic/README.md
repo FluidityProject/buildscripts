@@ -32,7 +32,7 @@ The critical package requirements for Fluidity are listed here in the suggested 
 * gcc/g++/gfortran (>=7)
 * MPI 
 * Python3 / Conda3
-* PETSc (>=3.7)
+* PETSc (>=3.7, with Fortran support)
 * Zoltan (from Trilinos, with Fortran support)
 * HDF5 (with parallel support, and h5py)
 * VTK with python3 support
