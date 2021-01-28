@@ -57,7 +57,7 @@ pushd ${FLUIDITY_PREFIX}
   git clone https://github.com/fluidityproject/fluidity.git 
   pushd fluidity
     # Fixes for HDF5 1.12 in h5hut - remove when upstream is fixed
-    sed -i -e 's/H5Oget_info(/H5Oget_info1(/' h5hut/test/testframe.c h5hut/src/h5core/private/h5_hdf5.h
+    sed -i -e 's/H5Oget_info(/H5Oget_info1(/' h5hut/test/testframe.c h5hut/src/h5core/private/h5_hdf5.c
     sed -i -e 's/H5Oget_info (/H5Oget_info1 (/' h5hut/src/h5core/private/h5_hdf5.h
     sed -i -e 's/H5Oget_info_by_name(/H5Oget_info_by_name1(/' h5hut/src/h5core/private/h5_hdf5.c
     # Fix for VTK9 - remove when upstream is fixed
