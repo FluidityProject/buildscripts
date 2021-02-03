@@ -4,7 +4,7 @@
 export FLUIDITY_PREFIX=${HOME}/fluidity
 
 # Use GNU compilers
-module restore PrgEnv-gnu
+module restore -s PrgEnv-gnu
 
 # Set up compiler environment to use Archer2 wrappers
 export CC=cc
