@@ -9,9 +9,9 @@
 # need to do at least the following environment setup:
 # 
 #   module restore -s PrgEnv-gnu
+#   module swap gcc gcc/9.3.0
 #   module load cray-python
-#   
-# and add the directory containing your VTK libraries to LD_LIBRARY_PATH
+#   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${CRAY_PYTHON_PREFIX}/lib  
 
 # Where Fluidity will be built - edit this to your preferred location
 export FLUIDITY_PREFIX=${HOME}/fluidity
@@ -38,9 +38,9 @@ module load cray-python boost cmake trilinos petsc
 # Added environment for using system modules
 export VTK_DIR=${FLUIDITY_PREFIX}/vtk
 export VTK_INCLUDE=${VTK_DIR}/include/vtk-9.0
-export VTK_LIBS="-L${VTK_DIR}/lib64 -lvtkCommonCore-9.0 -lvtkCommonDataModel-9.0 -lvtkIOXML-9.0 -lvtkIOCore-9.0 -lvtkCommonExecutionModel-9.0 -lvtkParallelMPI-9.0 -lvtkIOLegacy-9.0 -lvtkFiltersVerdict-9.0 -lvtkIOParallelXML-9.0 -lvtkFiltersGeneral-9.0"
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${SCOTCH_DIR}/lib:${CRAY_PYTHON_PREFIX}/lib:${VTK_DIR}/lib64
-export LDFLAGS="${LDFLAGS} -L${TRILINOS_DIR}/lib -L${VTK_DIR}/lib64"
+export VTK_LIBS="-L${VTK_DIR}/lib64 -L/home/n01/n01/tmb1/static/vtk/lib64 -lvtksys-9.0 -lvtkCommonCore-9.0 -lvtkCommonDataModel-9.0 -lvtkIOXML-9.0 -lvtkIOCore-9.0 -lvtkCommonExecutionModel-9.0 -lvtkParallelMPI-9.0 -lvtkIOLegacy-9.0 -lvtkFiltersVerdict-9.0 -lvtkIOParallelXML-9.0 -lvtkFiltersGeneral-9.0 -lvtkCommonTransforms-9.0 -lvtkCommonMath-9.0 -lvtkCommonMisc-9.0 -lvtkloguru-9.0 -lvtkCommonCore-9.0 -lvtksys-9.0 -lvtkverdict-9.0 -lvtkParallelCore-9.0 -lvtkCommonDataModel-9.0 -lvtkCommonMath-9.0 -lvtkCommonExecutionModel-9.0 -lvtkIOXMLParser-9.0 -lvtkexpat-9.0 -lvtkIOCore-9.0 -lvtkCommonCore-9.0 -lvtkIOLegacy-9.0 -lvtklz4-9.0 -lvtklzma-9.0 -lvtkzlib-9.0 -lvtkCommonCore-9.0 -lvtkdoubleconversion-9.0"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${SCOTCH_DIR}/lib:${CRAY_PYTHON_PREFIX}/lib"
+export LDFLAGS="${LDFLAGS} -L${TRILINOS_DIR}/lib"
 export CPPFLAGS="${CPPFLAGS} -I${TRILINOS_DIR}/include -I${VTK_INCLUDE}"
 
 # Make and change into a directory for building VTK
@@ -52,12 +52,10 @@ pushd ${VTK_DIR}
   mkdir ${VTK_DIR}/build
   pushd ${VTK_DIR}/build
     # Configure and build
-    # To build static VTK, use -DBUILD_SHARED_LIBS=OFF
-    cmake -DVTK_USE_MPI=ON -DVTK_PYTHON_VERSION=3 -DCMAKE_INSTALL_PREFIX=${VTK_DIR} -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DVTK_WRAP_PYTHON=ON ../VTK-9.0.1
+    cmake -DBUILD_SHARED_LIBS=OFF -DVTK_USE_MPI=ON -DVTK_PYTHON_VERSION=3 -DCMAKE_INSTALL_PREFIX=${VTK_DIR} -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DVTK_WRAP_PYTHON=ON ../VTK-9.0.1
     make install
   popd
 popd
-# *** END OF LOCAL VTK BUILD
 
 # Make and change into a Fluidity build directory
 mkdir -p ${FLUIDITY_PREFIX}
