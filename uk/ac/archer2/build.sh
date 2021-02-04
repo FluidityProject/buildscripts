@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # Initial buildscript for Archer2 - minimally tested, use at your own risk!
 #
 # Note that all supporting software bar VTK is available from system modules. There
