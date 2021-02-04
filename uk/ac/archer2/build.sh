@@ -1,4 +1,16 @@
 # Initial buildscript for Archer2 - minimally tested, use at your own risk!
+#
+# Note that all supporting software bar VTK is available from system modules. There
+# are currently no plans to support VTK as a system module, hence we have to build
+# it locally.
+# 
+# Note that at runtime to use the Fluidity binary built by this module you will
+# need to do at least the following environment setup:
+# 
+#   module restore -s PrgEnv-gnu
+#   module load cray-python
+#   
+# and add the directory containing your VTK libraries to LD_LIBRARY_PATH
 
 # Where Fluidity will be built - edit this to your preferred location
 export FLUIDITY_PREFIX=${HOME}/fluidity
@@ -23,8 +35,6 @@ module swap gcc gcc/9.3.0
 module load cray-python boost cmake trilinos petsc
 
 # Added environment for using system modules
-## VTK is currently configured for a local build later in this script
-## but will need updating when a system module is available
 export VTK_DIR=${FLUIDITY_PREFIX}/vtk
 export VTK_INCLUDE=${VTK_DIR}/include/vtk-9.0
 export VTK_LIBS="-L${VTK_DIR}/lib64 -lvtkCommonCore-9.0 -lvtkCommonDataModel-9.0 -lvtkIOXML-9.0 -lvtkIOCore-9.0 -lvtkCommonExecutionModel-9.0 -lvtkParallelMPI-9.0 -lvtkIOLegacy-9.0 -lvtkFiltersVerdict-9.0 -lvtkIOParallelXML-9.0 -lvtkFiltersGeneral-9.0"
@@ -32,10 +42,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${SCOTCH_DIR}/lib:${CRAY_PYTHON_PREFIX}/
 export LDFLAGS="${LDFLAGS} -L${TRILINOS_DIR}/lib -L${VTK_DIR}/lib64"
 export CPPFLAGS="${CPPFLAGS} -I${TRILINOS_DIR}/include -I${VTK_INCLUDE}"
 
-# Make a directory to build in, if it doesn't already exist
-
-# *** LOCAL BUILD OF VTK - REMOVE WHEN A SYSTEM MODULE EXISTS ***
-# Make and change into a directory for local VTK
+# Make and change into a directory for building VTK
 mkdir -p ${VTK_DIR}
 pushd ${VTK_DIR}
   # Get VTK source
@@ -44,6 +51,7 @@ pushd ${VTK_DIR}
   mkdir ${VTK_DIR}/build
   pushd ${VTK_DIR}/build
     # Configure and build
+    # To build static VTK, use -DBUILD_SHARED_LIBS=OFF
     cmake -DVTK_USE_MPI=ON -DVTK_PYTHON_VERSION=3 -DCMAKE_INSTALL_PREFIX=${VTK_DIR} -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DVTK_WRAP_PYTHON=ON ../VTK-9.0.1
     make install
   popd
