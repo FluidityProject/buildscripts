@@ -38,7 +38,7 @@ module load cray-python boost cmake trilinos petsc
 # Added environment for using system modules
 export VTK_DIR=${FLUIDITY_PREFIX}/vtk
 export VTK_INCLUDE=${VTK_DIR}/include/vtk-9.0
-export VTK_LIBS="-L${VTK_DIR}/lib64 -L/home/n01/n01/tmb1/static/vtk/lib64 -lvtksys-9.0 -lvtkCommonCore-9.0 -lvtkCommonDataModel-9.0 -lvtkIOXML-9.0 -lvtkIOCore-9.0 -lvtkCommonExecutionModel-9.0 -lvtkParallelMPI-9.0 -lvtkIOLegacy-9.0 -lvtkFiltersVerdict-9.0 -lvtkIOParallelXML-9.0 -lvtkFiltersGeneral-9.0 -lvtkCommonTransforms-9.0 -lvtkCommonMath-9.0 -lvtkCommonMisc-9.0 -lvtkloguru-9.0 -lvtkCommonCore-9.0 -lvtksys-9.0 -lvtkverdict-9.0 -lvtkParallelCore-9.0 -lvtkCommonDataModel-9.0 -lvtkCommonMath-9.0 -lvtkCommonExecutionModel-9.0 -lvtkIOXMLParser-9.0 -lvtkexpat-9.0 -lvtkIOCore-9.0 -lvtkCommonCore-9.0 -lvtkIOLegacy-9.0 -lvtklz4-9.0 -lvtklzma-9.0 -lvtkzlib-9.0 -lvtkCommonCore-9.0 -lvtkdoubleconversion-9.0"
+export VTK_LIBS="-L${VTK_DIR}/lib64 -lvtksys-9.0 -lvtkCommonCore-9.0 -lvtkCommonDataModel-9.0 -lvtkIOXML-9.0 -lvtkIOCore-9.0 -lvtkCommonExecutionModel-9.0 -lvtkParallelMPI-9.0 -lvtkIOLegacy-9.0 -lvtkFiltersVerdict-9.0 -lvtkIOParallelXML-9.0 -lvtkFiltersGeneral-9.0 -lvtkCommonTransforms-9.0 -lvtkCommonMath-9.0 -lvtkCommonMisc-9.0 -lvtkloguru-9.0 -lvtkCommonCore-9.0 -lvtksys-9.0 -lvtkverdict-9.0 -lvtkParallelCore-9.0 -lvtkCommonDataModel-9.0 -lvtkCommonMath-9.0 -lvtkCommonExecutionModel-9.0 -lvtkIOXMLParser-9.0 -lvtkexpat-9.0 -lvtkIOCore-9.0 -lvtkCommonCore-9.0 -lvtkIOLegacy-9.0 -lvtklz4-9.0 -lvtklzma-9.0 -lvtkzlib-9.0 -lvtkCommonCore-9.0 -lvtkdoubleconversion-9.0"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${SCOTCH_DIR}/lib:${CRAY_PYTHON_PREFIX}/lib"
 export LDFLAGS="${LDFLAGS} -L${TRILINOS_DIR}/lib"
 export CPPFLAGS="${CPPFLAGS} -I${TRILINOS_DIR}/include -I${VTK_INCLUDE}"
