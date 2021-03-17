@@ -66,7 +66,7 @@ export F90=mpif90
 
 python3 -m pip install -t $INSTALLDIR/lib/python3.9/site-packages numpy
 
-## Build Hypre
+## Build Hypre standalone, as the PETSc build of HYPRE fails on Young
 
 curl -fsL https://github.com/hypre-space/hypre/archive/v2.20.0.tar.gz | tar -zxf - 
 pushd hypre-2.20.0/src/
