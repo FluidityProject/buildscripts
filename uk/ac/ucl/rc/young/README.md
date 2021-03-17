@@ -22,3 +22,9 @@ python3 -m pip install -t ${INSTALLDIR}/lib/python3.9/site-packages <module>
 
 Note that this build and environment use some beta modules for gcc9 which may change as time passes - please report
 any bugfixes back to this repo as pull requests - thank you!
+
+To-do list:
+
+* Get GCC10 support fixed in main branch
+* Rebase this build/environment on GCC10 modules
+* Raise issues for hdf5 (parallel), PETSc, Zoltan, blas/lapack, and VTK modules based on GCC10
