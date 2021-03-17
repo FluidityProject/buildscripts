@@ -17,7 +17,7 @@ To set up the Fluidity runtime environment:
 If you need additional python modules and want to install them into the Fluidity environment, use:
 
 ```bash
-python3 -m pip install -t $INSTALLDIR/lib/python3.9/site-packages <module>
+python3 -m pip install -t ${INSTALLDIR}/lib/python3.9/site-packages <module>
 ```
 
 Note that this build and environment use some beta modules for gcc9 which may change as time passes - please report
