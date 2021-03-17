@@ -14,5 +14,11 @@ To set up the Fluidity runtime environment:
 * Edit env.sh and set INSTALLDIR to the directory where Fluidity was installed (as used in build.sh)
 * Source env.sh either in your interactive shell or your script
 
+If you need additional python modules and want to install them into the Fluidity environment, use:
+
+```bash
+python3 -m pip install -t $INSTALLDIR/lib/python3.9/site-packages <module>
+```
+
 Note that this build and environment use some beta modules for gcc9 which may change as time passes - please report
 any bugfixes back to this repo as pull requests - thank you!
