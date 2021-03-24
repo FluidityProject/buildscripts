@@ -13,6 +13,10 @@
 #   module load cray-python
 #   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${CRAY_PYTHON_PREFIX}/lib  
 
+# Exit on error
+
+set -e
+
 # Where Fluidity will be built - edit this to your preferred location
 export FLUIDITY_PREFIX=${HOME}/fluidity
 
