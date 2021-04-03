@@ -41,6 +41,8 @@ set -e
 ## Set INSTALLDIR to an empty directory in scratch or home where 
 ##  the built software will be installed to.
 
+echo "DEBUG: step ${STEP}" | tee -a ~/install.log && ((STEP++)) || true
+
 export INSTALLDIR=
 
 date | tee -a ~/install.log
@@ -54,31 +56,26 @@ fi
 
 ## Load system modules
 
+echo "DEBUG: step ${STEP}" | tee -a ~/install.log && ((STEP++)) || true
 echo "Modules prior to module load step" | tee -a ~/install.log
 module list | tee -a ~/install.log
 
-echo "DEBUG: step ${STEP}" | tee -a ~/install.log && ((STEP++)) || true 
-module unload default-modules apr gcc-libs | tee -a ~/install.log
-echo "DEBUG: step ${STEP}" | tee -a ~/install.log && ((STEP++)) || true
-module load beta-modules | tee -a ~/install.log
-echo "DEBUG: step ${STEP}" | tee -a ~/install.log && ((STEP++)) || true
-module load gcc-libs/9.2.0 | tee -a ~/install.log
-echo "DEBUG: step ${STEP}" | tee -a ~/install.log && ((STEP++)) || true
-module load compilers/gnu/9.2.0 | tee -a ~/install.log
-echo "DEBUG: step ${STEP}" | tee -a ~/install.log && ((STEP++)) || true
-module load mpi/openmpi/3.1.5/gnu-9.2.0 | tee -a ~/install.log
-echo "DEBUG: step ${STEP}" | tee -a ~/install.log && ((STEP++)) || true
-module load bison/3.0.4/gnu-4.9.2 flex/2.5.39 cmake/3.19.1 python/3.9.1 | tee -a ~/install.log
+module unload default-modules apr gcc-libs
+module load beta-modules
+module load gcc-libs/9.2.0
+module load compilers/gnu/9.2.0
+module load mpi/openmpi/3.1.5/gnu-9.2.0
+module load bison/3.0.4/gnu-4.9.2 flex/2.5.39 cmake/3.19.1 python/3.9.1
 
-echo "Modules after module load step" | tee -a ~/install.log
 echo "DEBUG: step ${STEP}" | tee -a ~/install.log && ((STEP++)) || true
+echo "Modules after module load step" | tee -a ~/install.log
 module list 2>&1 | tee -a ~/install.log
 
 ## Set up build environment
 
 
-echo "Environment before build setup" >> ~/install.log
-export >> ~/install.log
+echo "Environment before build setup" | tee -a ~/install.log
+export | tee -a ~/install.log
 
 export PETSC_ARCH=linux-gnu-c-opt
 
@@ -94,8 +91,8 @@ export FC=mpif90
 export F77=mpif77
 export F90=mpif90
 
-echo "Environment after build setup" >> ~/install.log
-export >> ~/install.log
+echo "Environment after build setup" | tee -a ~/install.log
+export | tee -a ~/install.log
 
 ## Install numpy
 
