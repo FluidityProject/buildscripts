@@ -88,8 +88,8 @@ popd
 ## Build PETSc
 
 git clone -b release https://gitlab.com/petsc/petsc.git petsc
-git checkout v3.14.2
 pushd petsc
+  git checkout v3.14.2
   export PETSC_DIR=$PWD
   ./configure --with-shared-libraries --with-debugging=0 --PETSC_ARCH=${PETSC_ARCH} --download-metis=1 --download-ml=1 --download-parmetis=1 --download-triangle=1 --download-ptscotch=1 --download-suitesparse=1 --download-ctetgen=1 --download-chaco=1 --download-scalapack=1 --download-fblaslapack=1 --download-blacs=1 --known-mpi-shared-libraries=1 --prefix=${INSTALLDIR} --with-fortran-interfaces=1 --with-zlib=1 --with-hdf5=1 --with-valgrind=1 --with-hypre=1 --with-hypre-dir=${INSTALLDIR} --with-hdf5-dir=${INSTALLDIR}
   make all
