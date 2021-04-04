@@ -27,7 +27,7 @@
 
 set -e
 
-## Set INSTALLDIR to an empty directory in scratch or home where 
+## Set INSTALLDIR to an empty directory in scratch or home where
 ##  the built software will be installed to.
 
 export INSTALLDIR=
@@ -68,10 +68,10 @@ python3 -m pip install -t $INSTALLDIR/lib/python3.9/site-packages numpy
 
 ## Build Hypre standalone, as the PETSc build of HYPRE fails on Young
 
-curl -fsL https://github.com/hypre-space/hypre/archive/v2.20.0.tar.gz | tar -zxf - 
+curl -fsL https://github.com/hypre-space/hypre/archive/v2.20.0.tar.gz | tar -zxf -
 pushd hypre-2.20.0/src/
   ./configure --enable-shared --prefix=${INSTALLDIR}
-  make install 
+  make install
 popd
 
 ## Build hdf5
@@ -117,7 +117,7 @@ popd
 
 ## Build VTK
 
-curl -fsL https://www.vtk.org/files/release/9.0/VTK-9.0.1.tar.gz | tar -zxf - 
+curl -fsL https://www.vtk.org/files/release/9.0/VTK-9.0.1.tar.gz | tar -zxf -
 mkdir vtk-build
 pushd vtk-build
   cmake -DVTK_USE_MPI=ON -DVTK_PYTHON_VERSION=3 -DModule_vtkParallelMPI=ON -DCMAKE_INSTALL_PREFIX=${INSTALLDIR} -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release -DVTK_WRAP_PYTHON=ON ../VTK-9.0.1
