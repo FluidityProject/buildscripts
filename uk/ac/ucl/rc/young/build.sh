@@ -26,6 +26,7 @@
 ## Don't continue if there's an error during the build
 
 set -e
+set -o pipefail
 
 ## Set INSTALLDIR to an empty directory in scratch or home where
 ##  the built software will be installed to.
