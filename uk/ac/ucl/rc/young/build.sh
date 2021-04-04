@@ -22,7 +22,6 @@
 #                                                                            #
 ##############################################################################
 
-
 ## Don't continue if there's an error during the build
 
 set -e
