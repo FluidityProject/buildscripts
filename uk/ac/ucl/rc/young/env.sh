@@ -11,8 +11,6 @@
 #                                                                            #
 ##############################################################################
 
-set -e
-
 module unload default-modules apr gcc-libs
 module load beta-modules
 module load gcc-libs/9.2.0
