@@ -9,10 +9,18 @@ To build Fluidity:
 * Run build.sh
 * Wait on the order of three hours...
 
+If you're expecting or experiencing problems with the build and want to submit a bug report, please use 'debug-build.sh'
+rather than build.sh. This is functionally identical to build.sh in terms of build steps and output, but generates a lot
+more debugging output which is copied to ~/install.log which can be included with a bug report to aid debugging.
+
 To set up the Fluidity runtime environment:
 
 * Edit env.sh and set INSTALLDIR to the directory where Fluidity was installed (as used in build.sh)
-* Source env.sh either in your interactive shell or your script
+* Source env.sh either in your interactive shell or your script, ie:
+
+```bash
+source env.sh
+```
 
 If you need additional python modules and want to install them into the Fluidity environment, use:
 
