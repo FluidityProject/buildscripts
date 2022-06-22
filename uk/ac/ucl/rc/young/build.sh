@@ -39,12 +39,15 @@ fi
 
 ## Load system modules
 
+module unload default-modules/2018
+module unload subversion/1.14.1 rcps-core/1.0.0
+module unload apr-util/1.6.1
 module unload default-modules apr gcc-libs
 module load beta-modules
-module load gcc-libs/9.2.0
-module load compilers/gnu/9.2.0
-module load mpi/openmpi/3.1.5/gnu-9.2.0
-module load bison/3.0.4/gnu-4.9.2 flex/2.5.39 cmake/3.19.1 python/3.9.1
+module load gcc-libs/10.2.0
+module load compilers/gnu/10.2.0
+module load mpi/openmpi/4.0.5/gnu-10.2.0
+module load bison/3.0.4/gnu-4.9.2 flex/2.5.39 cmake/3.21.1 python3/3.9-gnu-10.2.0
 
 ## Set up build environment
 
@@ -54,18 +57,15 @@ export LDFLAGS="${LDFLAGS} -L${INSTALLDIR}/lib -L${INSTALLDIR}/lib64"
 export CPPFLAGS="${CPPFLAGS} -I${INSTALLDIR}/include"
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${INSTALLDIR}/lib:${INSTALLDIR}/lib64
 export PATH=$PATH:${INSTALLDIR}/bin
-export PYTHONPATH=${INSTALLDIR}/lib/python3.9/site-packages:${INSTALLDIR}/lib64/python3.9/site-packages
+export PYVER=`python3 -c "import sys; version=\".\".join(map(str, sys.version_info[:2])); print(version)"`
+export PYTHONPATH=${INSTALLDIR}/lib/python${PYVER}/site-packages:${INSTALLDIR}/lib64/python${PYVER}/site-packages
 
 export CC=mpicc
 export CXX=mpicxx
 export FC=mpif90
 export F77=mpif77
 export F90=mpif90
-
-## Install numpy
-
-python3 -m pip install -t $INSTALLDIR/lib/python3.9/site-packages numpy
-
+#
 ## Build Hypre standalone, as the PETSc build of HYPRE fails on Young
 
 curl -fsL https://github.com/hypre-space/hypre/archive/v2.20.0.tar.gz | tar -zxf -
@@ -103,7 +103,7 @@ export PETSC_DIR=${INSTALLDIR}
 curl -fsL https://github.com/sandialabs/Zoltan/archive/v3.83.tar.gz | tar -zxvf -
 mkdir zoltan-build
 pushd zoltan-build
-  LDFLAGS="-lssp" ../Zoltan-3.83/configure --prefix=${INSTALLDIR} --libdir=${INSTALLDIR}/lib --enable-mpi --with-mpi-compilers --with-gnumake --enable-f90interface --enable-zoltan-cppdriver --disable-examples --with-parmetis --with-parmetis-libdir=${INSTALLDIR}/lib --with-parmetis-incdir=${INSTALLDIR}/include --with-scotch --with-scotch-libdir=${INSTALLDIR}/lib --with-scotch-incdir=${INSTALLDIR}/include
+  FCFLAGS="-fallow-argument-mismatch" LDFLAGS="-lssp" ../Zoltan-3.83/configure --prefix=${INSTALLDIR} --libdir=${INSTALLDIR}/lib --enable-mpi --with-mpi-compilers --with-gnumake --enable-f90interface --enable-zoltan-cppdriver --disable-examples --with-parmetis --with-parmetis-libdir=${INSTALLDIR}/lib --with-parmetis-incdir=${INSTALLDIR}/include --with-scotch --with-scotch-libdir=${INSTALLDIR}/lib --with-scotch-incdir=${INSTALLDIR}/include
   make
   make install
 popd
@@ -132,7 +132,7 @@ git clone https://github.com/fluidityproject/fluidity.git
 
 pushd fluidity
   ## Fixes for VTK9 cna be removed once fixed upstream
-  git apply ../vtk9fixes.patch
+  curl -fsL https://raw.githubusercontent.com/FluidityProject/buildscripts/main/uk/ac/ucl/rc/young/vtk9fixes.patch | git apply
 
   ## For some reason ltmain.sh (required by h5hut) is missing and
   ##  needs libtoolize rerunning
