@@ -1,0 +1,30 @@
+diff --git a/configure.in b/configure.in
+index e11cb809c..ee4392725 100644
+--- a/configure.in
++++ b/configure.in
+@@ -1513,8 +1513,8 @@ if test "$with_VTK" = no ; then enable_vtk=no; fi
+ if test "$enable_VTK" = no ; then enable_vtk=no; fi
+ if test "$enable_vtk" != "no" ; then
+     AC_MSG_NOTICE([Checking for VTK automagic.])
+-    VTK_FLAGS=`cmake --find-package -DNAME=VTK -DCOMPILER_ID=gcc -DLANGUAGE=Fortran -DMODE=COMPILE`
+-    VTK_LIBS=`cmake --find-package -DNAME=VTK -DCOMPILER_ID=gcc -DLANGUAGE=Fortran -DMODE=LINK`
++    VTK_FLAGS="-I${INSTALLDIR}/include/vtk-9.2"
++    VTK_LIBS="-L${INSTALLDIR}/lib64 -lvtkCommonCore-9.2 -lvtkCommonDataModel-9.2 -lvtkIOXML-9.2 -lvtkIOCore-9.2 -lvtkCommonExecutionModel-9.2 -lvtkParallelMPI-9.2 -lvtkIOLegacy-9.2 -lvtkFiltersVerdict-9.2 -lvtkIOParallelXML-9.2 -lvtkFiltersGeneral-9.2 -lvtksys-9.2 -lvtkloguru-9.2 -lvtkCommonTransforms-9.2 -lvtkCommonMisc-9.2 -lvtkCommonSystem-9.2 -lvtkCommonMath-9.2 -lvtkIOXMLParser-9.2 -lvtkdoubleconversion-9.2 -lvtklz4-9.2 -lvtklzma-9.2 -lvtkzlib-9.2 -lvtkParallelCore-9.2 -lvtkverdict-9.2 -lvtkFiltersCore-9.2 -lvtkCommonComputationalGeometry-9.2 -lvtkexpat-9.2"
+ 
+     OLD_CPPFLAGS="$CPPFLAGS"
+     CPPFLAGS="$CPPFLAGS $VTK_FLAGS"
+diff --git a/libadaptivity/configure.in b/libadaptivity/configure.in
+index 00a037bc7..56203b0a0 100644
+--- a/libadaptivity/configure.in
++++ b/libadaptivity/configure.in
+@@ -155,8 +155,8 @@ AC_ARG_ENABLE(vtk,[AC_HELP_STRING([--enable-vtk],
+             [Enable VTK support to build and run test cases (default: no).])])
+ if test "x$enable_vtk" != "xno" ; then
+     AC_MSG_NOTICE([Checking for VTK automagic.])
+-    VTK_FLAGS=`cmake --find-package -DNAME=VTK -DCOMPILER_ID=gcc -DLANGUAGE=Fortran -DMODE=COMPILE`
+-    VTK_LIBS=`cmake --find-package -DNAME=VTK -DCOMPILER_ID=gcc -DLANGUAGE=Fortran -DMODE=LINK`
++    VTK_FLAGS="-I${INSTALLDIR}/include/vtk-9.2"
++    VTK_LIBS="-L${INSTALLDIR}/lib64 -lvtkCommonCore-9.2 -lvtkCommonDataModel-9.2 -lvtkIOXML-9.2 -lvtkIOCore-9.2 -lvtkCommonExecutionModel-9.2 -lvtkParallelMPI-9.2 -lvtkIOLegacy-9.2 -lvtkFiltersVerdict-9.2 -lvtkIOParallelXML-9.2 -lvtkFiltersGeneral-9.2 -lvtksys-9.2 -lvtkloguru-9.2 -lvtkCommonTransforms-9.2 -lvtkCommonMisc-9.2 -lvtkCommonSystem-9.2 -lvtkCommonMath-9.2 -lvtkIOXMLParser-9.2 -lvtkdoubleconversion-9.2 -lvtklz4-9.2 -lvtklzma-9.2 -lvtkzlib-9.2 -lvtkParallelCore-9.2 -lvtkverdict-9.2 -lvtkFiltersCore-9.2 -lvtkCommonComputationalGeometry-9.2 -lvtkexpat-9.2"
+     OLD_CPPFLAGS="$CPPFLAGS"
+     CPPFLAGS="$CPPFLAGS $VTK_FLAGS"
+     OLD_LIBS="$LIBS"
